@@ -1,0 +1,79 @@
+/* ================= Portfolio design system =================
+   Palette extends the existing Healing-Architecture-ML project page
+   (warm vellum paper + rust/sage accents) so all three sheets read
+   as one set. Display type + mono "annotation" type layer a drafting/
+   title-block signature on top.
+================================================================ */
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#91827d;--bg2:#7d6f68;--paper:#f1e9df;--card:#f6efe6;
+  --line:rgba(43,45,37,.2);--line2:rgba(43,45,37,.32);
+  --ink:#2b2d25;--ink2:#3b3e33;--mut:#5c5548;
+  --rust:#7e4236;--sage:#4f5345;--blue:#5f6b60;--gold:#8a5a40;
+  --grad:linear-gradient(135deg,#7e4236,#4f5345);
+  --r:14px;--rs:8px;
+  --display:'Space Grotesk',Inter,sans-serif;
+  --body:'Inter',sans-serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+html{scroll-behavior:smooth}
+body{font-family:var(--body);background:var(--bg);color:var(--ink);line-height:1.6}
+a{color:var(--rust);text-decoration:none}
+.wrap{max-width:1120px;margin:0 auto;padding:0 1.4rem}
+
+/* ---- drafting grid backdrop ---- */
+.gridbg{
+  background-image:
+    linear-gradient(rgba(43,45,37,.055) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(43,45,37,.055) 1px,transparent 1px);
+  background-size:34px 34px;
+}
+
+/* ---- nav ---- */
+nav.top{position:sticky;top:0;z-index:50;background:rgba(241,233,223,.92);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.nav-in{max-width:1120px;margin:0 auto;display:flex;align-items:center;gap:1rem;flex-wrap:wrap;padding:.75rem 1.4rem}
+.mark{font-family:var(--display);font-weight:700;font-size:1.02rem;letter-spacing:-.3px;color:var(--ink);margin-right:auto}
+.mark span{color:var(--rust)}
+.crumbs{font-family:var(--mono);font-size:.72rem;letter-spacing:.5px;color:var(--mut);text-transform:uppercase}
+.crumbs a{color:var(--mut)}
+.crumbs a:hover{color:var(--rust)}
+nav.top .back{font-family:var(--mono);font-size:.74rem;letter-spacing:.4px;color:var(--ink2);border:1px solid var(--line2);padding:.35rem .7rem;border-radius:7px}
+nav.top .back:hover{border-color:var(--rust);color:var(--rust)}
+
+/* ---- eyebrow / sheet-number tag ---- */
+.eyebrow{font-family:var(--mono);font-size:.72rem;font-weight:500;letter-spacing:2px;text-transform:uppercase;color:var(--rust);display:flex;align-items:center;gap:.5rem}
+.eyebrow::before{content:"";width:22px;height:1px;background:var(--rust)}
+
+h1{font-family:var(--display);font-size:clamp(2rem,4.4vw,3.4rem);font-weight:600;letter-spacing:-1px;line-height:1.08;margin:.6rem 0}
+h2{font-family:var(--display);font-size:clamp(1.5rem,3vw,2.1rem);font-weight:600;letter-spacing:-.5px;margin:.3rem 0 .2rem}
+h3{font-family:var(--display);font-size:1.08rem;font-weight:600;margin-bottom:.5rem}
+.sub{color:var(--ink2);max-width:640px;margin:.5rem 0 1.4rem;font-size:1.02rem}
+.hl{background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+p{color:var(--ink2);font-size:.95rem}
+.mono{font-family:var(--mono)}
+
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:1.4rem}
+.g2{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.1rem}
+.g3{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1rem}
+.g4{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:.9rem}
+
+.chip{display:inline-block;font-family:var(--mono);font-size:.68rem;font-weight:500;padding:.2rem .55rem;border-radius:6px;background:rgba(126,66,54,.12);color:var(--rust)}
+.chip.b{background:rgba(95,107,96,.16);color:var(--blue)}
+.chip.o{background:rgba(138,90,64,.16);color:var(--gold)}
+
+/* ---- title block, the recurring signature ---- */
+.titleblock{border:1px solid var(--line2);border-radius:10px;overflow:hidden;font-family:var(--mono);font-size:.72rem;background:var(--card)}
+.tb-row{display:flex;border-bottom:1px solid var(--line)}
+.tb-row:last-child{border-bottom:none}
+.tb-cell{flex:1;padding:.55rem .7rem;border-right:1px solid var(--line)}
+.tb-cell:last-child{border-right:none}
+.tb-cell .k{display:block;color:var(--mut);letter-spacing:1px;text-transform:uppercase;font-size:.6rem;margin-bottom:.2rem}
+.tb-cell .v{color:var(--ink);font-weight:600}
+
+footer.site{border-top:1px solid var(--line);padding:2rem 1.4rem;text-align:center;color:var(--mut);font-family:var(--mono);font-size:.74rem}
+
+@media(max-width:760px){
+  .wrap{padding:0 1rem}
+  .g2{grid-template-columns:1fr}
+  .nav-in{padding:.6rem 1rem}
+}

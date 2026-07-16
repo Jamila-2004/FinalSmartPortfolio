@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A-103 · Parametric Brick Façade Generator</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../assets/style.css">
+<style>
+.hero{padding:2.6rem 0 1rem}
+.pipe{display:flex;flex-wrap:wrap;gap:.4rem;align-items:center;font-family:var(--mono);font-size:.75rem;color:var(--ink2);margin-top:1.2rem}
+.pipe b{color:var(--ink);background:var(--card);border:1px solid var(--line);padding:.32rem .6rem;border-radius:8px;font-weight:500}
+.pipe span{color:var(--rust)}
+section.page{padding:1.6rem 0 3rem}
+.feat{border-top:3px solid var(--rust);padding:1.1rem 1.1rem 1.2rem}
+.feat h3{font-size:.98rem}
+.feat p{font-size:.82rem;margin:0}
+.feat .n{font-family:var(--mono);font-size:.68rem;color:var(--mut);letter-spacing:1px}
+
+.brickviz{display:grid;grid-template-columns:repeat(24,1fr);grid-auto-rows:12px;gap:2px;border-radius:10px;overflow:hidden;border:1px solid var(--line2)}
+.brickviz i{background:var(--rust);display:block;transform-origin:center}
+
+.logic{font-family:var(--mono);font-size:.78rem;background:var(--ink);color:#e9e2d4;border-radius:12px;padding:1.1rem 1.3rem;line-height:1.9;overflow-x:auto;white-space:pre}
+.logic b{color:#e2a37a}
+.logic i{color:#9db3a2;font-style:normal}
+
+.dl{display:flex;align-items:center;gap:.8rem;padding:.9rem 1.1rem;border:1px solid var(--line);border-radius:10px;background:var(--card);color:var(--ink)}
+.dl:hover{border-color:var(--rust)}
+.dl .ic{font-size:1.2rem}.dl .nm{font-weight:600;font-size:.88rem;font-family:var(--display)}.dl .ds{font-size:.74rem;color:var(--mut);font-family:var(--mono)}
+.note{font-size:.78rem;color:var(--mut);margin-top:.6rem}
+</style>
+</head>
+<body class="gridbg">
+
+<nav class="top"><div class="nav-in">
+  <div class="mark">Brick Façade <span>·</span> A-103</div>
+  <div class="crumbs"><a href="../../index.html">← Portfolio</a></div>
+</div></nav>
+
+<div class="wrap">
+
+<section class="hero">
+  <div class="eyebrow">A-103 · Grasshopper</div>
+  <h1>A façade shaped by<br><span class="hl">how much light it lets in.</span></h1>
+  <p class="sub">A parametric brick screen where the geometry isn't drawn by hand — it's derived.
+    A Python script node inside the Grasshopper definition analyzes daylight and lux levels across
+    the façade, that analysis sets the window-to-wall ratio for each zone based on its function and
+    light need, and the same values then drive every brick's rotation angle and opening size. Light
+    input becomes masonry output.</p>
+  <div class="pipe"><b>Daylight / lux analysis (Python node)</b><span>→</span><b>WWR per façade zone</b><span>→</span><b>brick rotation + opening size</b><span>→</span><b>generated screen</b></div>
+</section>
+
+<section class="page">
+  <span class="eyebrow">Why derive it</span>
+  <div class="g2" style="margin-top:.8rem">
+    <div class="card" style="border-top:3px solid var(--rust)">
+      <h3 style="color:var(--rust)">The problem</h3>
+      <p>A perforated brick screen is usually patterned by eye — an aesthetic choice repeated
+        uniformly across a whole façade, regardless of which rooms sit behind which part of it, or
+        how much daylight each one actually needs.</p>
+    </div>
+    <div class="card" style="border-top:3px solid var(--sage)">
+      <h3 style="color:var(--sage)">The approach</h3>
+      <p>Run a lux / daylight analysis first. Let that analysis decide how open or closed each
+        façade zone should be — its window-to-wall ratio — based on the function behind it. Then let
+        every individual brick's rotation and opening follow that same number, so the pattern is a
+        direct readout of the light behind it, not a decoration applied on top.</p>
+    </div>
+  </div>
+</section>
+
+<section class="page">
+  <span class="eyebrow">Pipeline</span>
+  <h2 style="margin-top:.5rem">Three stages, one script node in the middle</h2>
+  <div class="g3" style="margin-top:.9rem">
+    <div class="card feat"><div class="n">01 · Analysis</div><h3>Daylight &amp; lux</h3><p>A Python script node computes daylight / lux levels across the façade, zone by zone, as the definition's environmental input.</p></div>
+    <div class="card feat"><div class="n">02 · Ratio</div><h3>Window-to-wall ratio</h3><p>Each zone's WWR is set from its lux reading together with the function behind that part of the façade — more opening where more daylight is needed, less where it isn't.</p></div>
+    <div class="card feat"><div class="n">03 · Brick</div><h3>Rotation + opening</h3><p>The WWR and lux values are read back down to brick scale — each brick's rotation angle and opening size follow the same gradient, so the masonry pattern visibly tracks the light behind it.</p></div>
+  </div>
+  <div class="card" style="margin-top:1rem">
+    <h3>What the definition is doing, in outline</h3>
+    <div class="logic"><b>lux_map</b>        = python_node.analyze(daylight_inputs)   <i># per façade zone</i>
+<b>wwr</b>            = f(lux_map, zone_function)          <i># more lux need → higher WWR</i>
+<b>for each brick in zone:</b>
+    <b>brick.rotation</b>  = map(wwr, angle_min, angle_max)
+    <b>brick.opening</b>   = map(lux_map[zone], opening_min, opening_max)</div>
+    <p class="note">Higher target daylight in a zone pushes its WWR up, which in turn opens the
+      brick rotation and opening further in that region — and pulls both back down where the
+      function behind the wall calls for less light or more privacy.</p>
+  </div>
+</section>
+
+<section class="page">
+  <span class="eyebrow">Reading the pattern</span>
+  <h2 style="margin-top:.5rem">Light gradient, in brick</h2>
+  <p class="sub">A schematic reading of the logic above — brick opening increasing from left to
+    right as the target daylight rises across the façade. The generated definition produces the
+    same gradient directly from the lux analysis, not from a manually drawn ramp.</p>
+  <div class="brickviz" id="brickviz"></div>
+</section>
+
+<section class="page">
+  <span class="eyebrow">Downloads</span>
+  <h2 style="margin-top:.5rem">Project file</h2>
+  <div class="g2" style="margin-top:.6rem">
+    <a class="dl" href="BrickFile2.gh" download><span class="ic">🧱</span><div><div class="nm">BrickFile2.gh</div><div class="ds">Grasshopper definition · needs Rhino + Grasshopper to open</div></div></a>
+  </div>
+</section>
+
+<section class="page" style="padding-top:0">
+  <div class="titleblock">
+    <div class="tb-row">
+      <div class="tb-cell"><span class="k">Project</span><span class="v">Parametric Brick Façade</span></div>
+      <div class="tb-cell"><span class="k">Sheet</span><span class="v">A-103</span></div>
+      <div class="tb-cell"><span class="k">Platform</span><span class="v">Rhino / Grasshopper</span></div>
+    </div>
+    <div class="tb-row">
+      <div class="tb-cell"><span class="k">Analysis</span><span class="v">Python script node</span></div>
+      <div class="tb-cell"><span class="k">Driver</span><span class="v">Daylight / lux → WWR</span></div>
+      <div class="tb-cell"><span class="k">Output</span><span class="v">Brick rotation + opening</span></div>
+    </div>
+  </div>
+</section>
+
+</div>
+
+<footer class="site">Gamila Wael · Computational Design Portfolio · A-103 Parametric Brick Façade</footer>
+
+<script>
+// schematic light-gradient brick grid — purely illustrative of the logic described above
+const grid=document.getElementById('brickviz'),cols=24,rows=10;
+let html='';
+for(let r=0;r<rows;r++){
+  for(let c=0;c<cols;c++){
+    const t=c/(cols-1); // 0 (closed) -> 1 (open, high daylight need)
+    const rot=(t*45).toFixed(0);
+    const scale=(1-0.6*t).toFixed(2);
+    const op=(0.35+0.65*t).toFixed(2);
+    html+=`<i style="transform:rotate(${rot}deg) scaleX(${scale});opacity:${op}"></i>`;
+  }
+}
+grid.innerHTML=html;
+</script>
+
+</body>
+</html>

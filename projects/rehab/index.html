@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Healing Architecture ML — El Minya Rehab Center</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#91827d;--bg2:#82746b;--card:#f1e9df;--line:rgba(43,45,37,.2);
+  --tx:#2b2d25;--tx2:#3b3e33;--mut:#4a4339;--teal:#7e4236;--emer:#4f5345;--blue:#5f6b60;
+  --orange:#8a5a40;--rose:#7e4236;--grad:linear-gradient(135deg,#7e4236,#4f5345);--r:14px;
+}
+html{scroll-behavior:smooth}
+body{font-family:Inter,sans-serif;background:var(--bg);color:var(--tx);line-height:1.6}
+a{color:var(--teal);text-decoration:none}
+.wrap{max-width:1080px;margin:0 auto;padding:0 1.3rem}
+/* nav */
+nav{position:sticky;top:0;z-index:50;background:rgba(231,220,207,.92);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.nav-in{max-width:1080px;margin:0 auto;display:flex;align-items:center;gap:.4rem;flex-wrap:wrap;padding:.6rem 1.3rem}
+.logo{font-weight:800;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-right:auto;font-size:1rem}
+.nav-links{display:flex;align-items:center;gap:.4rem;flex-wrap:wrap}
+nav a{color:var(--tx2);font-size:.8rem;font-weight:500;padding:.35rem .6rem;border-radius:8px;cursor:pointer}
+nav a:hover{color:var(--teal)}
+nav a.on{color:var(--teal);background:rgba(126,66,54,.1)}
+.hamburger{display:none;background:none;border:1px solid var(--line);font-size:1.15rem;line-height:1;color:var(--tx);cursor:pointer;padding:.35rem .55rem;border-radius:8px}
+/* pages */
+.page{display:none;padding:2.4rem 0 4rem;animation:fade .4s ease}
+.page.on{display:block}
+@keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.tag{font-size:.72rem;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--teal)}
+h1{font-size:clamp(1.9rem,4vw,2.8rem);font-weight:800;letter-spacing:-1px;line-height:1.12;margin:.5rem 0}
+h2{font-size:clamp(1.4rem,3vw,2rem);font-weight:700;letter-spacing:-.5px;margin:.3rem 0 .2rem}
+h3{font-size:1.02rem;font-weight:600;margin-bottom:.5rem}
+.sub{color:var(--tx2);max-width:640px;margin:.4rem 0 1.4rem}
+.hl{background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+p{color:var(--tx2);font-size:.92rem}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:1.3rem}
+.g2{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1rem}
+.g3{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:.9rem}
+.g4{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:.8rem}
+.chip{display:inline-block;font-size:.7rem;font-weight:600;padding:.18rem .5rem;border-radius:6px;background:rgba(126,66,54,.12);color:var(--teal)}
+.chip.b{background:rgba(111,125,114,.16);color:var(--blue)}.chip.o{background:rgba(160,106,78,.16);color:var(--orange)}
+.pipe{display:flex;flex-wrap:wrap;gap:.4rem;align-items:center;font-size:.78rem;color:var(--tx2);margin-top:1rem}
+.pipe b{color:var(--tx);background:var(--card);border:1px solid var(--line);padding:.3rem .6rem;border-radius:8px}
+.pipe span{color:var(--teal)}
+img.shot{width:100%;border-radius:10px;border:1px solid var(--line);display:block}
+.imgwrap{border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.imgwrap .cap{font-size:.76rem;color:var(--mut);padding:.5rem .7rem}
+.statrow{display:flex;gap:.8rem;flex-wrap:wrap;margin-top:1.2rem}
+.stat{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:.8rem 1.1rem;min-width:120px}
+.stat b{font-size:1.5rem;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.stat span{display:block;font-size:.72rem;color:var(--mut)}
+/* tables */
+table{width:100%;border-collapse:collapse;font-size:.78rem}
+th{text-align:left;color:var(--teal);font-size:.68rem;text-transform:uppercase;letter-spacing:.5px;padding:.45rem .5rem;border-bottom:1px solid var(--line)}
+td{padding:.38rem .5rem;color:var(--tx2);border-bottom:1px solid rgba(94,97,81,.04)}
+td b{color:var(--tx)}
+/* bars */
+.bar{display:flex;align-items:center;gap:.7rem;padding:.32rem 0}
+.bar .nm{flex:0 0 42%;font-size:.8rem;color:var(--tx2)}
+.bar .track{flex:1;height:7px;border-radius:7px;background:rgba(94,97,81,.07);overflow:hidden}
+.bar .fill{height:100%;border-radius:7px;background:var(--grad);transition:width .35s}
+.bar .fill.warn{background:linear-gradient(135deg,#b9794f,#9c5238)}
+.bar .vl{flex:0 0 52px;text-align:right;font-size:.8rem;font-weight:600;color:var(--tx)}
+/* demo */
+.demo{display:grid;grid-template-columns:1fr 1fr;gap:1.1rem}
+@media(max-width:820px){.demo{grid-template-columns:1fr}}
+.ctrl{margin-bottom:.7rem}
+.ctrl label{display:flex;justify-content:space-between;font-size:.8rem;color:var(--tx2);margin-bottom:.25rem}
+.ctrl label b{color:var(--teal)}
+input[type=range]{width:100%;accent-color:var(--teal);cursor:pointer}
+.seg{display:flex;gap:.3rem;flex-wrap:wrap}
+.seg button{flex:1;min-width:64px;padding:.4rem;border:1px solid var(--line);background:var(--card);color:var(--tx2);border-radius:8px;font-size:.76rem;cursor:pointer;font-weight:500}
+.seg button.on{background:rgba(126,66,54,.15);color:var(--teal);border-color:var(--teal)}
+.score{text-align:center;padding:1rem;border-radius:12px;background:rgba(126,66,54,.06);border:1px solid var(--line);margin-bottom:.9rem}
+.score .n{font-size:3rem;font-weight:800;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;line-height:1}
+.score .l{font-size:.74rem;color:var(--mut)}
+.recs .bar .nm{flex:0 0 50%}
+.dl{display:flex;align-items:center;gap:.8rem;padding:.9rem 1.1rem;border:1px solid var(--line);border-radius:10px;background:var(--card);color:var(--tx)}
+.dl:hover{border-color:var(--teal)}
+.dl .ic{font-size:1.2rem}.dl .nm{font-weight:600;font-size:.88rem}.dl .ds{font-size:.74rem;color:var(--mut)}
+footer{border-top:1px solid var(--line);padding:1.6rem;text-align:center;color:var(--mut);font-size:.78rem}
+.note{font-size:.76rem;color:var(--mut);margin-top:.5rem}
+/* ---- mobile ---- */
+@media(max-width:760px){
+  .wrap{padding:0 1rem}
+  /* never force a track wider than the phone */
+  .g2{grid-template-columns:1fr}
+  .g3{grid-template-columns:repeat(auto-fit,minmax(150px,1fr))}
+  .nav-in{flex-wrap:nowrap;padding:.55rem 1rem}
+  .hamburger{display:block}
+  .nav-links{display:none;flex-direction:column;align-items:stretch;width:100%;gap:.15rem;padding:.5rem 0 .2rem;order:3}
+  .nav-links.open{display:flex}
+  nav a{font-size:.92rem;padding:.6rem .7rem}
+  .page{padding:1.8rem 0 3rem}
+  .card{padding:1.1rem}
+  /* let wide tables scroll instead of squishing */
+  .card table{display:block;overflow-x:auto;white-space:nowrap}
+  .statrow{gap:.6rem}
+  .stat{flex:1 1 calc(50% - .3rem);min-width:0}
+}
+@media(max-width:420px){
+  h1{font-size:1.7rem}
+  .seg button{min-width:0}
+  .score .n{font-size:2.4rem}
+}
+</style>
+</head>
+<body>
+
+<nav><div class="nav-in">
+  <a href="../../index.html" style="font-size:.72rem;font-weight:600;letter-spacing:.5px;color:var(--tx2);border:1px solid var(--line);padding:.3rem .6rem;border-radius:8px;margin-right:.6rem">← Portfolio</a>
+  <div class="logo">Healing Architecture ML <span style="font-weight:500;opacity:.6">· A-101</span></div>
+  <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">☰</button>
+  <div class="nav-links" id="navLinks">
+    <a data-p="objective" class="on">Objective</a>
+    <a data-p="gh">GH Model</a>
+    <a data-p="vars">Variables</a>
+    <a data-p="analysis">Analysis</a>
+    <a data-p="ml">ML Model</a>
+    <a data-p="try">Try It Live</a>
+    <a data-p="video">Demo Video</a>
+    <a data-p="downloads">Downloads</a>
+  </div>
+</div></nav>
+
+<div class="wrap">
+
+<!-- OBJECTIVE -->
+<section class="page on" id="objective">
+  <span class="tag">El Minya · Drug-Rehabilitation Center</span>
+  <h1>Architecture that adapts to the <span class="hl">patient</span>,<br>not the other way around.</h1>
+  <p class="sub">A machine-learning model reads a patient's <b>psychology</b> and the <b>site environment</b>, then recommends the <b>architectural design</b> for their recovery phase — and scores how well that design supports healing.</p>
+  <div class="imgwrap" style="margin-bottom:1.4rem"><img class="shot" src="websitepic.jpg" alt="El Minya Healing Architecture" onerror="this.parentElement.style.display='none'"></div>
+  <div class="g2">
+    <div class="card" style="border-top:3px solid var(--rose)">
+      <h3 style="color:var(--rose)">The problem</h3>
+      <div class="imgwrap" style="margin:.6rem 0"><img class="shot" src="problem.png" alt="Problem" onerror="this.parentElement.style.display='none'"></div>
+      <p>Rehab centers are built <b>one-size-fits-all</b>. But a high-trauma detox patient needs dim, quiet, private refuge — while a rehab-phase patient needs daylight, openness and belonging. The same room can't serve both.</p>
+    </div>
+    <div class="card" style="border-top:3px solid var(--emer)">
+      <h3 style="color:var(--emer)">The solution</h3>
+      <div class="imgwrap" style="margin:.6rem 0"><img class="shot" src="solution.png" alt="Solution" onerror="this.parentElement.style.display='none'"></div>
+      <p>Map <b>psychology + environment → design</b> per phase: ceiling, corridor width, daylight, shading screen, privacy, social spaces — plus a 0–100 <b>healing score</b>. Served live through a Grasshopper node.</p>
+    </div>
+  </div>
+  <div class="pipe"><b>GH + Ladybug</b><span>→</span><b>CSV dataset</b><span>→</span><b>Clean + train</b><span>→</span><b>model.pkl</b><span>→</span><b>Live recommendations + score</b></div>
+</section>
+
+<!-- GH MODEL -->
+<section class="page" id="gh">
+  <span class="tag">B · Grasshopper Model</span>
+  <h2>Phases, orientation & climate</h2>
+  <p class="sub">Patients are organized into <b>3 recovery phases</b> mapped to <b>4 clusters</b> with fixed orientations, tuned to El Minya's hot-desert (BWh) climate.</p>
+  <div class="g4">
+    <div class="card" style="border-top:3px solid var(--teal)"><b>C1</b> · Detox-2<br><span class="chip b">NW</span></div>
+    <div class="card" style="border-top:3px solid var(--emer)"><b>C2</b> · Detox-1 sensitive<br><span class="chip">NE — gentle AM light</span></div>
+    <div class="card" style="border-top:3px solid var(--orange)"><b>C3</b> · Detox-1<br><span class="chip b">NW</span></div>
+    <div class="card" style="border-top:3px solid var(--blue)"><b>C4</b> · Rehab-therapy<br><span class="chip b">NW</span></div>
+  </div>
+  <p class="note"><b>NW = harsh</b> afternoon sun (deep shading, tight glazing) · <b>NE = gentle</b> morning light (sensory-sensitive / high-trauma patients).</p>
+  <h3 style="margin-top:1.6rem">Environmental analysis — Ladybug under the real El Minya EPW</h3>
+  <div class="g2" style="margin-top:.6rem">
+    <div class="imgwrap"><img class="shot" src="gh_basecase.png" onerror="this.parentElement.style.display='none'"><div class="cap">Parametric base-case room: window + overhang, NW/NE</div></div>
+    <div class="imgwrap"><img class="shot" src="gh_sunpath.png" onerror="this.parentElement.style.display='none'"><div class="cap">El Minya sun-path (from EPW)</div></div>
+    <div class="imgwrap"><img class="shot" src="gh_incident_radiation.png" onerror="this.parentElement.style.display='none'"><div class="cap">Summer incident radiation on the facade</div></div>
+    <div class="imgwrap"><img class="shot" src="gh_adaptive_comfort.png" onerror="this.parentElement.style.display='none'"><div class="cap">Adaptive-comfort / ventilation hours</div></div>
+  </div>
+  <h3 style="margin-top:1.6rem">Generative shading screen</h3>
+  <p class="note">The model sets the perforated screen's openness per orientation — the GH façade reads it live from <code>facade_recommendations.csv</code>.</p>
+  <div class="g3" style="margin-top:.6rem">
+    <div class="card"><b style="color:var(--teal);font-size:1.4rem">9–18°</b><div style="font-size:.8rem;color:var(--tx2)">NW louver angle · nearly closed against harsh sun</div></div>
+    <div class="card"><b style="color:var(--teal);font-size:1.4rem">34–42°</b><div style="font-size:.8rem;color:var(--tx2)">NE louver angle · more open for gentle light</div></div>
+    <div class="card"><b style="color:var(--teal);font-size:1.4rem">10–70%</b><div style="font-size:.8rem;color:var(--tx2)">openness range, driven by patient + phase</div></div>
+  </div>
+</section>
+
+<!-- VARIABLES -->
+<section class="page" id="vars">
+  <span class="tag">C · Variables</span>
+  <h2>Inputs &amp; outputs</h2>
+  <p class="sub">Patient psychology + environment (left) drive the architectural recommendations (right).</p>
+  <div class="g2">
+    <div class="card">
+      <h3 style="color:var(--teal)">Inputs — patient + site</h3>
+      <table><tbody>
+        <tr><td><b>Depression</b></td><td>0–42</td></tr>
+        <tr><td><b>Anxiety</b></td><td>0–42</td></tr>
+        <tr><td><b>Stress</b></td><td>0–1</td></tr>
+        <tr><td><b>Trauma</b></td><td>0–80</td></tr>
+        <tr><td><b>Substance</b> type + severity</td><td>6 types · 0–1</td></tr>
+        <tr><td><b>Sensory sensitivity</b></td><td>0–1</td></tr>
+        <tr><td><b>Spatial &amp; relapse triggers</b></td><td>categories</td></tr>
+        <tr><td><b>Behaviour pattern</b></td><td>3 types</td></tr>
+        <tr><td><b>Privacy need</b></td><td>0–1</td></tr>
+        <tr><td><b>Recovery phase</b></td><td>detox-1/2 · rehab</td></tr>
+        <tr><td><b>Age · Gender</b></td><td>16–60 · F/M</td></tr>
+        <tr><td><b>Orientation</b> <span class="chip o">environment</span></td><td>NW / NE</td></tr>
+      </tbody></table>
+    </div>
+    <div class="card">
+      <h3 style="color:var(--emer)">Outputs — 16 design targets + score</h3>
+      <table><tbody>
+        <tr><td><b>Ceiling height</b></td><td>4.5–5.2 m</td></tr>
+        <tr><td><b>Corridor width</b></td><td>3.5–5 m</td></tr>
+        <tr><td><b>Daylight / glazing</b></td><td>5–60 %</td></tr>
+        <tr><td><b>Shading-screen openness</b></td><td>10–70 %</td></tr>
+        <tr><td><b>Glare control</b></td><td>0–1</td></tr>
+        <tr><td><b>Shading depth</b></td><td>0–1</td></tr>
+        <tr><td><b>Natural ventilation</b></td><td>0–1</td></tr>
+        <tr><td><b>Privacy / enclosure</b></td><td>0–1</td></tr>
+        <tr><td><b>Acoustic comfort</b></td><td>0–1</td></tr>
+        <tr><td><b>Biophilic intensity</b></td><td>0–1</td></tr>
+        <tr><td><b>Light warmth</b></td><td>0–1</td></tr>
+        <tr><td><b>Social gradient</b></td><td>0–1</td></tr>
+        <tr><td><b>Belonging / activity</b></td><td>0–1</td></tr>
+        <tr><td><b>De-escalation</b></td><td>0–1</td></tr>
+        <tr><td><b>Accommodation</b></td><td>multi/shared/private</td></tr>
+        <tr><td><b>Family space</b></td><td>0–1</td></tr>
+        <tr><td><b>Healing score</b></td><td>0–100</td></tr>
+      </tbody></table>
+    </div>
+  </div>
+  <p class="note">All inputs are grounded in <b>expert interviews</b> and <b>evidence-based literature</b> — no random or fabricated values.</p>
+</section>
+
+<!-- ANALYSIS -->
+<section class="page" id="analysis">
+  <span class="tag">D · Data &amp; Analysis</span>
+  <h2>500 profiles · 0 nulls · evidence-grounded</h2>
+  <p class="sub">An <b>evidence-grounded simulation</b> (not real records): inputs sampled from validated Egyptian scales + 2 interviews; climate validated in Ladybug.</p>
+  <div class="g2">
+    <div class="imgwrap"><img class="shot" src="../outputs/correlation_matrix.png" onerror="this.parentElement.style.display='none'"><div class="cap">Correlation matrix</div></div>
+    <div class="imgwrap"><img class="shot" src="../outputs/heatmap_targets_by_cluster.png" onerror="this.parentElement.style.display='none'"><div class="cap">Mean targets by cluster</div></div>
+    <div class="imgwrap"><img class="shot" src="../outputs/boxplots_by_stage.png" onerror="this.parentElement.style.display='none'"><div class="cap">Key targets by phase</div></div>
+    <div class="imgwrap"><img class="shot" src="../outputs/distributions.png" onerror="this.parentElement.style.display='none'"><div class="cap">Key distributions</div></div>
+  </div>
+</section>
+
+<!-- ML MODEL -->
+<section class="page" id="ml">
+  <span class="tag">E · Machine Learning</span>
+  <h2>Multi-output regression</h2>
+  <p class="sub">4 models compared; best chosen by 5-fold CV. The score is <b>one 0–100 number</b> — a weighted 8-pillar evidence rubric scored on the design.</p>
+  <div class="statrow" id="ml-stats"></div>
+  <div class="g2" style="margin-top:1.3rem">
+    <div class="card"><h3>Model comparison</h3><table><thead><tr><th>Model</th><th>Test R²</th><th>CV R²</th></tr></thead><tbody id="cmp"></tbody></table></div>
+    <div class="card"><h3>Per-target R² <span id="best" style="color:var(--teal);font-size:.8rem"></span></h3><div id="pertarget" style="max-height:320px;overflow:auto"></div></div>
+  </div>
+  <div class="card" style="margin-top:1rem">
+    <h3>Healing-score rubric — 8 pillars (one combined score)</h3>
+    <div id="pillars" class="g4" style="margin-top:.5rem"></div>
+    <p class="note">Ulrich supportive design · Terrapin biophilic · trauma-informed structured choice · WELL daylight/acoustic · ASHRAE thermal · stage-appropriate social &amp; belonging.</p>
+  </div>
+</section>
+
+<!-- TRY IT -->
+<section class="page" id="try">
+  <span class="tag">F · Try It Live</span>
+  <h2>Change the patient → watch the design respond</h2>
+  <p class="sub">This runs the model's exact rules in your browser. Move a slider or flip the orientation and the recommendations + healing score update instantly.</p>
+  <div class="demo">
+    <div class="card">
+      <div class="seg" style="margin-bottom:.8rem"><button data-stage="detox-1" class="on">Detox-1</button><button data-stage="detox-2">Detox-2</button><button data-stage="rehab-therapy">Rehab</button></div>
+      <div class="seg" style="margin-bottom:1rem"><button data-ori="NW" class="on">NW · harsh</button><button data-ori="NE">NE · gentle</button></div>
+      <div class="ctrl"><label>Depression <b id="lv-dep">20</b></label><input type="range" id="dep" min="0" max="42" value="20"></div>
+      <div class="ctrl"><label>Anxiety <b id="lv-anx">22</b></label><input type="range" id="anx" min="0" max="42" value="22"></div>
+      <div class="ctrl"><label>Trauma (PCL-5) <b id="lv-tra">40</b></label><input type="range" id="tra" min="0" max="80" value="40"></div>
+      <div class="ctrl"><label>Sensory sensitivity <b id="lv-sen">50%</b></label><input type="range" id="sen" min="0" max="100" value="50"></div>
+      <div class="ctrl"><label>Privacy need <b id="lv-prv">60%</b></label><input type="range" id="prv" min="0" max="100" value="60"></div>
+      <p class="note">Cluster: <b id="clu" style="color:var(--teal)">—</b></p>
+    </div>
+    <div>
+      <div class="score"><div class="n" id="sc">—</div><div class="l">HEALING-SUPPORT SCORE / 100</div></div>
+      <div class="card recs" id="recs"></div>
+    </div>
+  </div>
+</section>
+
+<!-- DEMO VIDEO -->
+<section class="page" id="video">
+  <span class="tag">G · Demo Video</span>
+  <h2>Workflow Demonstration</h2>
+  <p class="sub">Watch the complete workflow from parametric modeling, Ladybug solar simulation, dataset extraction, ML model training, and the real-time Grasshopper prediction node.</p>
+  
+  <div class="card" style="max-width: 800px; margin: 0 auto; padding: 1.5rem;">
+    <div class="video-container" style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 8px; border: 1px solid var(--line); background: #000; margin-bottom: 1.5rem;">
+      <iframe src="https://newgizauniversty-my.sharepoint.com/:v:/g/personal/gamila_wael_2022_ngu_edu_eg/IQBJuURf6GnpS4n6PEsrfr14AUdXMBcEnYZfRDfYPDKEkKQ?e=Wygzck" 
+              style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;" 
+              allowfullscreen></iframe>
+    </div>
+    <div style="text-align: center;">
+      <p style="margin-bottom: 1.2rem; font-size: 0.9rem; color: var(--tx2);">If the video player doesn't load or asks for permission, click the button below to watch it directly on SharePoint.</p>
+      <a class="dl" href="https://newgizauniversty-my.sharepoint.com/:v:/g/personal/gamila_wael_2022_ngu_edu_eg/IQBJuURf6GnpS4n6PEsrfr14AUdXMBcEnYZfRDfYPDKEkKQ?e=Wygzck" target="_blank" style="display: inline-flex; justify-content: center; width: auto; padding: 0.8rem 2rem; background: var(--grad); color: white; border-radius: 8px; font-weight: 600; text-decoration: none;">
+        <span class="ic" style="margin-right: 0.5rem;">▶</span> Watch Video on SharePoint
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- DOWNLOADS -->
+<section class="page" id="downloads">
+  <span class="tag">H · Downloads</span>
+  <h2>Project files</h2>
+  <div class="g2" style="margin-top:.6rem">
+    <a class="dl" href="../data/patient_design_dataset.csv" download><span class="ic">📊</span><div><div class="nm">dataset.csv</div><div class="ds">500 profiles × 35 cols</div></div></a>
+    <a class="dl" href="../models/model.pkl" download><span class="ic">🤖</span><div><div class="nm">model.pkl</div><div class="ds">trained sklearn pipeline</div></div></a>
+    <a class="dl" href="../gh/predict_node.py" download><span class="ic">🐍</span><div><div class="nm">predict_node.py</div><div class="ds">GH predictive node</div></div></a>
+    <a class="dl" href="../data/facade_recommendations.csv" download><span class="ic">🪟</span><div><div class="nm">facade_recommendations.csv</div><div class="ds">screen openness + louver angle per phase × orientation</div></div></a>
+    <a class="dl" href="../Trial.gh" download><span class="ic">🏗️</span><div><div class="nm">Grasshopper file</div><div class="ds">parametric + node</div></div></a>
+    <a class="dl" href="../models/model_meta.json" download><span class="ic">📋</span><div><div class="nm">model_meta.json</div><div class="ds">metrics + features</div></div></a>
+    <a class="dl" href="https://newgizauniversty-my.sharepoint.com/:v:/g/personal/gamila_wael_2022_ngu_edu_eg/IQBJuURf6GnpS4n6PEsrfr14AUdXMBcEnYZfRDfYPDKEkKQ?e=Wygzck" target="_blank"><span class="ic">🎥</span><div><div class="nm">Demo Video</div><div class="ds">Workflow demonstration on SharePoint</div></div></a>
+    <a class="dl" href="../docs/data_provenance.md" download><span class="ic">📜</span><div><div class="nm">data_provenance.md</div><div class="ds">what the data is</div></div></a>
+  </div>
+</section>
+
+</div>
+
+<footer>Healing Architecture ML · CCAS 2.6 · Spring 2026 · El Minya Drug-Rehabilitation Center</footer>
+
+<script src="../models/model_meta.js"></script>
+<script src="../outputs/phase_summary.js"></script>
+<script>
+// ---- page switcher ----
+const links=document.querySelectorAll('nav a'),pages=document.querySelectorAll('.page');
+const navLinks=document.getElementById('navLinks'),hamburger=document.getElementById('hamburger');
+function closeMenu(){navLinks.classList.remove('open');hamburger.setAttribute('aria-expanded','false');}
+hamburger.onclick=()=>{const open=navLinks.classList.toggle('open');hamburger.setAttribute('aria-expanded',open);};
+links.forEach(a=>a.onclick=()=>{const p=a.dataset.p;
+  links.forEach(x=>x.classList.toggle('on',x===a));
+  pages.forEach(s=>s.classList.toggle('on',s.id===p));
+  closeMenu();
+  window.scrollTo(0,0);});
+
+// ---- live ML metrics from model_meta.js ----
+const TL={Y1_ceiling_h:'Ceiling',Y2_volume_idx:'Corridor',Y3_daylight_pct:'Daylight%',Y4_glare_ctrl:'Glare',Y5_shading:'Shading',Y6_ventilation:'Ventilation',Y7_privacy:'Privacy',Y8_acoustic:'Acoustic',Y9_biophilic:'Biophilic',Y10_light_warmth:'Light warmth',Y11_social_gradient:'Social',Y12_belonging:'Belonging',Y13_deescalation:'De-escalation',Y14_accommodation:'Accommodation',Y15_family_space:'Family',Y16_screen_openness:'Screen open',Y_score:'Healing score'};
+const M=window.MODEL_META;
+if(M){
+  document.getElementById('ml-stats').innerHTML=
+    `<div class="stat"><b>${(M.overall_r2*100).toFixed(0)}%</b><span>Overall R²</span></div>
+     <div class="stat"><b>${(M.cv_r2*100).toFixed(0)}%</b><span>5-fold CV R²</span></div>
+     <div class="stat"><b>${(M.per_target.Y_score.r2*100).toFixed(0)}%</b><span>Score R²</span></div>
+     <div class="stat"><b>${M.best_model}</b><span>best model</span></div>`;
+  document.getElementById('best').textContent='('+M.best_model+')';
+  document.getElementById('cmp').innerHTML=Object.entries(M.model_comparison).sort((a,b)=>b[1].cv_r2-a[1].cv_r2)
+    .map(([n,m])=>{const best=n===M.best_model;return `<tr><td>${best?'<b>'+n+' ✓</b>':n}</td><td>${m.overall_r2.toFixed(2)}</td><td>${m.cv_r2.toFixed(2)}</td></tr>`}).join('');
+  document.getElementById('pertarget').innerHTML=Object.entries(M.per_target).sort((a,b)=>b[1].r2-a[1].r2)
+    .map(([k,m])=>{const w=Math.max(0,Math.min(1,m.r2))*100;return `<div class="bar"><div class="nm">${TL[k]||k}</div><div class="track"><div class="fill${m.r2<0.8?' warn':''}" style="width:${w}%"></div></div><div class="vl">${m.r2.toFixed(2)}</div></div>`}).join('');
+}
+const PW={stress_reduction:18,biophilic:15,thermal_microclimate:13,structured_choice:12,social_gradient:12,daylight_comfort:12,belonging:10,acoustic_deescalation:8};
+const PL={stress_reduction:'Stress reduction',biophilic:'Biophilic',thermal_microclimate:'Thermal',structured_choice:'Structured choice',social_gradient:'Social gradient',daylight_comfort:'Daylight',belonging:'Belonging',acoustic_deescalation:'Acoustic'};
+document.getElementById('pillars').innerHTML=Object.entries(PW).map(([k,w])=>`<div class="card" style="padding:.7rem"><b style="font-size:1.3rem;color:var(--teal)">${w}</b><div style="font-size:.76rem;color:var(--tx2)">${PL[k]}</div></div>`).join('');
+
+// ---- interactive demo: faithful JS port of mapping.py rules ----
+const CLIM={daylight_cap:{NW:28,NE:50},shading_base:{NW:.85,NE:.55},vent_base:{NW:.70,NE:.60},glare_nw_boost:.05,thermal_base:{NW:.70,NE:1.0},screen_base:{NW:.28,NE:.55}};
+const cl=(v,a,b)=>Math.max(a,Math.min(b,v));
+const ST={stage:'detox-1',ori:'NW'};
+function compute(){
+  const dep=(+dep0.value)/42,anx=(+anx0.value)/42,tra=(+tra0.value)/80,stress=.5;
+  const sens=(+sen0.value)/100,prv=(+prv0.value)/100,stage=ST.stage,ori=ST.ori,isNW=ori==='NW';
+  const inDetox=stage!=='rehab-therapy',inRehab=stage==='rehab-therapy';
+  const withdrawn=true,agitated=false,voluntary=true,compulsory=false;
+  const ac=cl(.35*anx+.30*tra+.20*stress+.15*dep,0,1);
+  const Y={};
+  Y.Y1=cl((inRehab?5.0:4.7)+.25*dep-.25*(anx+tra)/2,4.5,5.2);
+  Y.Y2=inRehab?cl(4.75+.25*(dep-.5),4.5,5.0):cl(3.75+.25*(dep-.5),3.5,4.0);
+  Y.Y3=cl(Math.min(35+20*dep-18*sens,CLIM.daylight_cap[ori]),5,60);
+  Y.Y4=cl(.4+.3*sens+.2*tra+(isNW?CLIM.glare_nw_boost:0),0,1);
+  Y.Y5=cl(CLIM.shading_base[ori]+.1*sens,0,1);
+  Y.Y6=cl(CLIM.vent_base[ori]+.1*(1-ac),0,1);
+  Y.Y7=cl(.25+.35*prv+(inDetox?.2:0)+.15*tra+(compulsory?.1:0),0,1);
+  Y.Y8=cl(.45+.3*sens+.15*anx+(agitated?.1:0),0,1);
+  Y.Y9=cl(.55+.25*((anx+tra+dep)/3),0,1);
+  Y.Y10=cl(.5+.35*((anx+tra)/2)-.25*dep,0,1);
+  const bs={'detox-1':.03,'detox-2':.20}[stage]??.80;
+  Y.Y11=cl(bs-.15*prv+(withdrawn?-.03:.08),0,1);
+  Y.Y12=cl((inDetox?.2:.85)+.1*dep,0,1);
+  Y.Y13=cl(.4+.3*anx+.2*tra+(agitated?.15:0),0,1);
+  Y.Y16=cl(CLIM.screen_base[ori]-.20*sens-.15*tra+.12*dep-(inDetox?.05:0),.10,.70);
+  // score (8 pillars)
+  const q={};
+  q.stress_reduction=cl(.30*(1-Math.abs(Y.Y7-prv))+.25*Y.Y4+.25*Y.Y9+.20*Y.Y10-.08*ac,0,1);
+  q.biophilic=Y.Y9;
+  q.structured_choice=cl(.5*Y.Y13+.3*(1-Math.abs(Y.Y7-prv))+(voluntary?.2:.05),0,1);
+  const isoc={'detox-1':.05,'detox-2':.20}[stage]??.80;
+  q.social_gradient=cl(1-Math.abs(Y.Y11-isoc),0,1);
+  q.belonging=cl(1-Math.abs(Y.Y12-(inDetox?.2:.85)),0,1);
+  const da=cl(Y.Y3/38,0,1),gp=(isNW?.15:0)*(1-Y.Y4);
+  q.daylight_comfort=cl(.6*da+.4*Y.Y4-gp,0,1);
+  const an=cl(.5+.3*sens+.2*anx,0,1);
+  q.acoustic_deescalation=cl(.6*(1-Math.abs(Y.Y8-an))+.4*Y.Y13,0,1);
+  q.thermal_microclimate=cl(CLIM.thermal_base[ori]*(.68+.32*Y.Y5)*(.90+.10*Y.Y6),0,1);
+  let s=0;for(const k in PW)s+=PW[k]*q[k];
+  const score=cl(1.13*(s*(1-.10*ac-(isNW?.03:0)))+1,0,100).toFixed(0);
+  // cluster
+  let clu=inRehab?'C4':stage==='detox-2'?'C1':((sens>=.6||tra*80>=50)?'C2':'C3');
+  return {Y,score,clu};
+}
+function row(nm,val,pct){return `<div class="bar"><div class="nm">${nm}</div><div class="track"><div class="fill" style="width:${cl(pct,0,100)}%"></div></div><div class="vl">${val}</div></div>`}
+function render(){
+  lvdep.textContent=dep0.value;lvanx.textContent=anx0.value;lvtra.textContent=tra0.value;
+  lvsen.textContent=sen0.value+'%';lvprv.textContent=prv0.value+'%';
+  const {Y,score,clu}=compute();
+  document.getElementById('sc').textContent=score;
+  document.getElementById('clu').textContent=clu+' · '+ST.ori;
+  document.getElementById('recs').innerHTML=
+    row('Ceiling height',Y.Y1.toFixed(2)+' m',(Y.Y1-4.5)/0.7*100)+
+    row('Corridor width',Y.Y2.toFixed(2)+' m',(Y.Y2-3.5)/1.5*100)+
+    row('Daylight / glazing',Y.Y3.toFixed(0)+'%',Y.Y3/60*100)+
+    row('Shading screen open',(Y.Y16*100).toFixed(0)+'%',Y.Y16*100)+
+    row('Glare control',Y.Y4.toFixed(2),Y.Y4*100)+
+    row('Privacy / enclosure',Y.Y7.toFixed(2),Y.Y7*100)+
+    row('Social gradient',Y.Y11.toFixed(2),Y.Y11*100)+
+    row('Biophilic',Y.Y9.toFixed(2),Y.Y9*100);
+}
+const dep0=document.getElementById('dep'),anx0=document.getElementById('anx'),tra0=document.getElementById('tra'),sen0=document.getElementById('sen'),prv0=document.getElementById('prv');
+const lvdep=document.getElementById('lv-dep'),lvanx=document.getElementById('lv-anx'),lvtra=document.getElementById('lv-tra'),lvsen=document.getElementById('lv-sen'),lvprv=document.getElementById('lv-prv');
+[dep0,anx0,tra0,sen0,prv0].forEach(e=>e.oninput=render);
+document.querySelectorAll('[data-stage]').forEach(b=>b.onclick=()=>{ST.stage=b.dataset.stage;document.querySelectorAll('[data-stage]').forEach(x=>x.classList.toggle('on',x===b));render();});
+document.querySelectorAll('[data-ori]').forEach(b=>b.onclick=()=>{ST.ori=b.dataset.ori;document.querySelectorAll('[data-ori]').forEach(x=>x.classList.toggle('on',x===b));render();});
+render();
+</script>
+</body>
+</html>
