@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A-104 · Drawing Register &amp; Revision Control</title>
+<meta name="description" content="A Windows desktop application for architectural drawing registers, revision history, and distribution tracking.">
+<link rel="stylesheet" href="../../assets/style.css">
+</head>
+<body class="gridpaper">
+
+<nav class="top"><div class="nav-in">
+  <div class="crumbs"><a href="../../index.html">← Portfolio</a></div>
+  <span class="crumbs">A-104 · Drawing Register</span>
+</div></nav>
+
+<main class="wrap">
+  <section class="hero">
+    <h1>Drawing Register &amp; Revision Control</h1>
+    <p class="sub">A Windows desktop application that brings drawing records, revision history,
+      PDF sheets, and distribution logs together. It helps a project team answer which revision
+      is current, who received it, and which transmittal it was issued under.</p>
+  </section>
+
+  <section class="page">
+    <h2>Drawing issue workflow</h2>
+    <div class="g3">
+      <article class="card">
+        <h3>Register drawings</h3>
+        <p>Record the drawing number, title, discipline, status, author, scale, and sheet size.
+          Filter the register by discipline or status and link a PDF to the drawing record.</p>
+      </article>
+      <article class="card">
+        <h3>Record revisions</h3>
+        <p>Log each revision with its code, type, and description. Record who issued, checked,
+          and approved it, then review earlier entries in the drawing’s revision history.</p>
+      </article>
+      <article class="card">
+        <h3>Track distribution</h3>
+        <p>Record the revision sent, the recipient and organisation, the transmittal number,
+          and the purpose of issue.</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="page">
+    <h2>Reporting</h2>
+    <div class="g2">
+      <article class="card">
+        <h3>Register analytics</h3>
+        <p>Review revision status and progress by discipline in charts, alongside totals
+          for the register and filtered results.</p>
+      </article>
+      <article class="card">
+        <h3>Export records</h3>
+        <p>Export the drawing register, revision log, and distribution list as Excel workbooks,
+          or generate a PDF summary report.</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="page">
+    <h2>Implementation</h2>
+    <p class="sub">Built in C# with WPF and .NET 8. The application stores records locally in JSON,
+      displays charts with OxyPlot, and generates Excel and PDF reports with EPPlus and QuestPDF.</p>
+  </section>
+</main>
+
+<footer class="site">Gamila Wael Youness · Computational and Architectural Design Portfolio · A-104 Drawing Register</footer>
+
+</body>
+</html>
