@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Get in touch · Gamila Wael Youness</title>
+<link rel="stylesheet" href="assets/style.css">
+<style>
+body{background:var(--paper)}
+.contact-layout{display:grid;grid-template-columns:1fr 1fr;gap:clamp(2rem,6vw,5rem);padding:clamp(2.5rem,6vw,5rem) 0}
+.contact-layout h1,.contact-layout h2{font-weight:400}
+.profile p{max-width:48ch;margin-top:1.5rem;font-size:1.08rem;line-height:1.65}
+.contact-details{margin-top:1.5rem}
+.contact-details div{display:grid;grid-template-columns:7.5rem 1fr;gap:1rem;padding:.9rem 0;border-bottom:1px solid var(--line)}
+.contact-details dt{color:var(--mut)}
+.contact-details dd{margin:0;overflow-wrap:anywhere}
+.contact-details a:hover{text-decoration:underline}
+.cv-section{padding:0 0 3rem}
+.cv-heading{display:flex;align-items:baseline;justify-content:space-between;gap:1rem;flex-wrap:wrap;margin-bottom:1rem}
+.cv-preview{display:block;width:100%;height:75vh;min-height:420px;border:1px solid var(--line2);background:var(--card)}
+@media(max-width:760px){.contact-layout{grid-template-columns:1fr}.contact-details div{grid-template-columns:6.5rem 1fr}}
+</style>
+</head>
+<body>
+<nav class="top"><div class="nav-in">
+  <a class="mark" href="index.html">Gamila Wael Youness</a>
+  <a class="back" href="index.html">← Portfolio</a>
+</div></nav>
+<main class="wrap">
+  <div class="contact-layout">
+    <section class="profile" aria-labelledby="profile-heading">
+      <h1 id="profile-heading">Architectural design,<br><em>computation &amp; craft.</em></h1>
+      <p>Smart Track Architecture graduate with a strong interest in architectural design, visualization, computational design, and BIM automation. Skilled in design development, 3D modeling, rendering, workshop drawings, parametric design using Grasshopper, Python scripting, and Revit plug-in development using C#. Supported by strong teamwork, leadership, presentation, communication, and problem-solving abilities. Seeking to apply these capabilities within a professional environment while expanding technical knowledge and industry experience.</p>
+    </section>
+    <section aria-labelledby="contact-heading">
+      <h2 id="contact-heading">Get in touch</h2>
+      <dl class="contact-details">
+        <div><dt>Email</dt><dd><a href="mailto:Gamilawael@gmail.com">Gamilawael@gmail.com</a></dd></div>
+        <div><dt>Phone</dt><dd><a href="tel:01021303363">01021303363</a></dd></div>
+        <div><dt>LinkedIn</dt><dd>Gamila Wael</dd></div>
+        <div><dt>Location</dt><dd>Giza, Egypt</dd></div>
+        <div><dt>Date of birth</dt><dd>12/07/2004</dd></div>
+      </dl>
+    </section>
+  </div>
+  <section class="cv-section" aria-labelledby="cv-heading">
+    <div class="cv-heading">
+      <h2 id="cv-heading">Curriculum vitae</h2>
+      <a href="assets/CV-Gamila-Wael.pdf" download>Download CV ↓</a>
+    </div>
+    <object class="cv-preview" data="assets/CV-Gamila-Wael.pdf" type="application/pdf" aria-label="Gamila Wael curriculum vitae">
+      <p><a href="assets/CV-Gamila-Wael.pdf">Open the CV</a></p>
+    </object>
+  </section>
+</main>
+<footer class="site">Gamila Wael Youness · Computational and Architectural Design Portfolio</footer>
+</body>
+</html>

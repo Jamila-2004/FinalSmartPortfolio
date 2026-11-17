@@ -7,25 +7,45 @@
 <link rel="stylesheet" href="assets/style.css">
 <style>
 /* ---- hero ---- */
-.hero{padding:3.4rem 0 3rem;position:relative}
-.hero .crosshair{position:absolute;width:22px;height:22px;opacity:.35}
-.hero .crosshair::before,.hero .crosshair::after{content:"";position:absolute;background:var(--ink)}
-.hero .crosshair::before{width:100%;height:1px;top:50%}
-.hero .crosshair::after{width:1px;height:100%;left:50%}
-.hero .ch1{top:1.2rem;left:1.4rem}.hero .ch2{top:1.2rem;right:1.4rem}
-.hero-grid{display:grid;grid-template-columns:1.3fr .8fr;gap:2.4rem;align-items:end;margin-top:.8rem}
-@media(max-width:820px){.hero-grid{grid-template-columns:1fr}}
-.hero-stats{display:flex;flex-direction:column;gap:.7rem}
-.hero-stat{border-left:2px solid var(--rust);padding:.15rem 0 .15rem .8rem}
-.hero-stat b{display:block;font-family:var(--display);font-size:1.05rem}
-.hero-stat span{font-family:var(--mono);font-size:.7rem;color:var(--mut);text-transform:uppercase;letter-spacing:.5px}
+.hero{position:relative;display:grid;grid-template-columns:minmax(0,60fr) minmax(0,40fr);min-height:32rem;margin:1.5rem 0 .5rem;border:1px solid var(--line2);border-radius:var(--r);overflow:hidden}
+.hero-photo{position:relative;display:flex;align-items:flex-end;isolation:isolate;background:var(--bg2);padding:clamp(1rem,2.4vw,1.75rem)}
+.hero-photo-art{position:absolute;inset:0;overflow:hidden;opacity:.9;container-type:size}
+.hero-photo-frame{position:absolute;inset:0}
+.hero-photo-frame img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 55%}
+.hero-photo::after{content:"";position:absolute;inset:0;z-index:0;background:linear-gradient(to top,var(--ink),transparent 85%);opacity:.85;pointer-events:none}
+.hero-photo h1{position:absolute;top:2.25rem;left:calc(100% + 6rem);transform:translateX(-50%);z-index:2;width:max-content;max-width:90%;margin:0;color:var(--ink);font-size:clamp(1.54rem,2.75vw,2.31rem);font-weight:500;line-height:1.08;text-shadow:0 1px 8px var(--paper)}
+.hero-photo h1 span,.hero-photo h1 em{display:block}
+.hero-intro{display:flex;flex-direction:column;align-items:flex-start;justify-content:flex-start;background:var(--paper);padding:8rem clamp(1rem,2.4vw,1.75rem) clamp(1rem,2.4vw,1.75rem)}
+.hero-intro .sub{margin:1.5rem 0 2rem;font-size:1rem;line-height:1.4}
+.hero-cta{display:inline-block;margin-top:auto;padding:.4rem .75rem;border-radius:var(--rs);background:var(--ink);color:var(--paper)}
+.hero-cta:hover{background:var(--sage)}
+.hero-stats{display:grid;gap:.45rem;margin-top:.9rem;width:100%;line-height:1.25}
+.hero-stat{display:grid;gap:.3rem;border-left:2px solid var(--rust);padding:.15rem 0 .15rem .5rem}
+.hero-stat b{display:block;font-family:var(--display);font-size:.85rem}
+.hero-stat span{font-family:var(--mono);font-size:.65rem;color:var(--mut);text-transform:uppercase;letter-spacing:.5px}
+#projects{scroll-margin-top:6rem}
+@media(max-width:760px){
+  .hero{grid-template-columns:1fr;min-height:0}
+  .hero-photo{min-height:0;aspect-ratio:2/1}
+  .hero-photo h1{top:auto;bottom:1.5rem;left:1.5rem;transform:none;max-width:calc(100% - 3rem);color:var(--paper);text-shadow:0 1px 8px var(--ink)}
+  .hero-intro{padding:1.5rem}
+}
 
 /* ---- sheet index ---- */
-.sheets{display:flex;flex-direction:column;gap:1.1rem;margin-top:1rem}
+.sheets{display:flex;flex-direction:column;gap:1.1rem}
 .sheet{display:grid;grid-template-columns:150px 1fr;border:1px solid var(--line2);border-radius:var(--r);background:var(--card);overflow:hidden;transition:transform .18s ease,box-shadow .18s ease;position:relative}
 .sheet:hover{transform:translateY(-3px);box-shadow:0 14px 28px rgba(43,45,37,.14)}
 .sheet a.hitbox{position:absolute;inset:0}
+.sheet:nth-child(even){grid-template-columns:1fr 150px}
+.sheet:nth-child(even) .sheet-num{grid-column:2;grid-row:1}
+.sheet:nth-child(even) .sheet-body{grid-column:1;grid-row:1}
+.sheet:nth-child(even) .sheet-arrow{right:calc(150px + 1.1rem)}
 @media(max-width:700px){.sheet{grid-template-columns:1fr}}
+@media(max-width:700px){
+  .sheet:nth-child(even){grid-template-columns:1fr}
+  .sheet:nth-child(even) .sheet-num,.sheet:nth-child(even) .sheet-body{grid-column:auto;grid-row:auto}
+  .sheet:nth-child(even) .sheet-arrow{right:1.1rem}
+}
 .sheet-num{background:var(--ink);color:var(--paper);display:flex;flex-direction:column;justify-content:space-between;padding:1rem .9rem}
 .sheet-num b{font-family:var(--display);font-size:1.7rem;line-height:1}
 .sheet-num span{font-family:var(--mono);font-size:.62rem;letter-spacing:1.5px;text-transform:uppercase;opacity:.7}
@@ -37,6 +57,7 @@
 
 /* ---- about strip ---- */
 .about{margin-top:2.6rem}
+.about .eyebrow::before{display:none}
 .skillrow{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:.9rem}
 .skillrow span{font-family:var(--mono);font-size:.72rem;border:1px solid var(--line2);padding:.32rem .65rem;border-radius:7px;color:var(--ink2)}
 </style>
@@ -51,20 +72,28 @@
 <div class="wrap">
 
 <section class="hero">
-  <h1>Architecture that learns from<br><span class="hl">data, code, and craft.</span></h1>
-  <div class="hero-grid">
-    <p class="sub">Four projects spanning design informed by trauma research and driven by machine learning,
-      room finish automation in Revit, a parametric brick façade shaped by daylight simulation, and
-      a desktop tool for architectural drawing revisions and distribution.</p>
+  <div class="hero-photo">
+    <div class="hero-photo-art">
+      <div class="hero-photo-frame">
+        <img src="assets/hero-building-collage.jpeg" alt="Architectural collage of the building with layered geometric planes and two palms">
+      </div>
+    </div>
+    <h1><span>Architecture that learns from</span><em>data, code, and automation.</em></h1>
+  </div>
+  <div class="hero-intro">
+    <p class="sub">Four projects exploring computation across architectural design and documentation,
+      from machine learning for healing environments and daylight driven façade design to room
+      finish automation in Revit and drawing register and revision management.</p>
+    <a class="hero-cta" href="contact.html">Get in touch →</a>
     <div class="hero-stats">
       <div class="hero-stat"><b>4</b><span>Project sheets</span></div>
-      <div class="hero-stat"><b>Grasshopper · Ladybug Tools · Python · scikit-learn · Revit API · C# · WPF</b><span>Core toolchain</span></div>
+      <div class="hero-stat"><b>Grasshopper · Python · scikit-learn · Revit API · C# · WPF</b><span>Core toolchain</span></div>
       <div class="hero-stat"><b>Architecture × Computation</b><span>Focus</span></div>
     </div>
   </div>
 </section>
 
-<section class="sheets">
+<section class="sheets" id="projects">
 
   <div class="sheet">
     <a class="hitbox" href="projects/rehab/index.html" aria-label="Open Healing Architecture ML"></a>
