@@ -73,6 +73,14 @@ p{color:var(--ink2);font-size:.95rem}
 footer.site{border-top:1px solid var(--line);padding:2rem 1.4rem;text-align:center;color:var(--mut);font-family:var(--mono);font-size:.74rem}
 
 @media(max-width:760px){
+  .mark{font-size:.95rem;line-height:1.4;overflow-wrap:anywhere}
+  .nav-in{gap:.35rem}
+  .nav-in .crumbs{font-size:.65rem}
+  .g2,.g3,.g4{min-width:0}
+  .card{min-width:0}
+  img,video{max-width:100%}
+  .tb-row{flex-wrap:wrap}
+  .tb-cell{min-width:0;overflow-wrap:anywhere}
   .wrap{padding:0 1rem}
   .g2{grid-template-columns:1fr}
   .nav-in{padding:.6rem 1rem}

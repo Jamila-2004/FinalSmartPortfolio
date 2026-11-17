@@ -26,9 +26,13 @@
 #projects{scroll-margin-top:6rem}
 @media(max-width:760px){
   .hero{grid-template-columns:1fr;min-height:0}
-  .hero-photo{min-height:0;aspect-ratio:2/1}
-  .hero-photo h1{top:auto;bottom:1.5rem;left:1.5rem;transform:none;max-width:calc(100% - 3rem);color:var(--paper);text-shadow:0 1px 8px var(--ink)}
+  .hero-photo{min-height:20rem;aspect-ratio:4/5}
+  .hero-photo-frame img{object-position:center}
+  .hero-photo h1{top:auto;bottom:1.5rem;left:1.25rem;transform:none;width:calc(100% - 2.5rem);max-width:none;font-size:clamp(1.3rem,5.6vw,2rem);color:var(--paper);text-shadow:0 1px 8px var(--ink)}
   .hero-intro{padding:1.5rem}
+  .hero-intro .sub{margin:0 0 1.5rem;line-height:1.55}
+  .hero-cta{margin-top:0;min-height:44px;display:inline-flex;align-items:center}
+  .hero-stat b{line-height:1.5;overflow-wrap:anywhere}
 }
 
 /* ---- sheet index ---- */
@@ -60,6 +64,14 @@
 .about .eyebrow::before{display:none}
 .skillrow{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:.9rem}
 .skillrow span{font-family:var(--mono);font-size:.72rem;border:1px solid var(--line2);padding:.32rem .65rem;border-radius:7px;color:var(--ink2)}
+@media(max-width:700px){
+  .sheet-num{display:grid;grid-template-columns:auto 1fr;align-items:center;gap:.5rem 1rem}
+  .sheet-num span:last-child{grid-column:1/-1}
+  .sheet-body{min-width:0;padding:1.1rem 1.1rem 3rem}
+  .sheet-body p{font-size:.95rem;line-height:1.55}
+  .sheet-tags{padding-right:0}
+  .about{margin-top:1.5rem}
+}
 </style>
 </head>
 <body class="gridbg">
