@@ -12,9 +12,9 @@
   --rust:#7e4236;--sage:#4f5345;--blue:#5f6b60;--gold:#8a5a40;
   --grad:linear-gradient(135deg,#7e4236,#4f5345);
   --r:14px;--rs:8px;
-  --display:'Space Grotesk',Inter,sans-serif;
-  --body:'Inter',sans-serif;
-  --mono:'IBM Plex Mono',ui-monospace,monospace;
+  --display:'Times New Roman', Times, serif;
+  --body:'Times New Roman', Times, serif;
+  --mono:'Times New Roman', Times, serif;
 }
 html{scroll-behavior:smooth}
 body{font-family:var(--body);background:var(--bg);color:var(--ink);line-height:1.6}

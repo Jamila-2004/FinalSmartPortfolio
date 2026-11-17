@@ -4,8 +4,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>A-103 · Parametric Brick Façade Generator</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../../assets/style.css">
 <style>
 .hero{padding:2.6rem 0 1rem}
@@ -43,9 +41,9 @@ section.page{padding:1.6rem 0 3rem}
 <section class="hero">
   <div class="eyebrow">A-103 · Grasshopper</div>
   <h1>A façade shaped by<br><span class="hl">how much light it lets in.</span></h1>
-  <p class="sub">A parametric brick screen where the geometry isn't drawn by hand — it's derived.
+  <p class="sub">A parametric brick screen where the geometry isn't drawn by hand. It is derived from daylight levels.
     A Python script node inside the Grasshopper definition analyzes daylight and lux levels across
-    the façade, that analysis sets the window-to-wall ratio for each zone based on its function and
+    the façade, that analysis sets the window to wall ratio for each zone based on its function and
     light need, and the same values then drive every brick's rotation angle and opening size. Light
     input becomes masonry output.</p>
   <div class="pipe"><b>Daylight / lux analysis (Python node)</b><span>→</span><b>WWR per façade zone</b><span>→</span><b>brick rotation + opening size</b><span>→</span><b>generated screen</b></div>
@@ -56,14 +54,14 @@ section.page{padding:1.6rem 0 3rem}
   <div class="g2" style="margin-top:.8rem">
     <div class="card" style="border-top:3px solid var(--rust)">
       <h3 style="color:var(--rust)">The problem</h3>
-      <p>A perforated brick screen is usually patterned by eye — an aesthetic choice repeated
+      <p>A perforated brick screen is usually patterned by eye, an aesthetic choice repeated
         uniformly across a whole façade, regardless of which rooms sit behind which part of it, or
         how much daylight each one actually needs.</p>
     </div>
     <div class="card" style="border-top:3px solid var(--sage)">
       <h3 style="color:var(--sage)">The approach</h3>
       <p>Run a lux / daylight analysis first. Let that analysis decide how open or closed each
-        façade zone should be — its window-to-wall ratio — based on the function behind it. Then let
+        façade zone should be (its window to wall ratio) based on the function behind it. Then let
         every individual brick's rotation and opening follow that same number, so the pattern is a
         direct readout of the light behind it, not a decoration applied on top.</p>
     </div>
@@ -75,8 +73,8 @@ section.page{padding:1.6rem 0 3rem}
   <h2 style="margin-top:.5rem">Three stages, one script node in the middle</h2>
   <div class="g3" style="margin-top:.9rem">
     <div class="card feat"><div class="n">01 · Analysis</div><h3>Daylight &amp; lux</h3><p>A Python script node computes daylight / lux levels across the façade, zone by zone, as the definition's environmental input.</p></div>
-    <div class="card feat"><div class="n">02 · Ratio</div><h3>Window-to-wall ratio</h3><p>Each zone's WWR is set from its lux reading together with the function behind that part of the façade — more opening where more daylight is needed, less where it isn't.</p></div>
-    <div class="card feat"><div class="n">03 · Brick</div><h3>Rotation + opening</h3><p>The WWR and lux values are read back down to brick scale — each brick's rotation angle and opening size follow the same gradient, so the masonry pattern visibly tracks the light behind it.</p></div>
+    <div class="card feat"><div class="n">02 · Ratio</div><h3>Window to wall ratio</h3><p>Each zone's WWR is set from its lux reading together with the function behind that part of the façade, with more opening where more daylight is needed, less where it isn't.</p></div>
+    <div class="card feat"><div class="n">03 · Brick</div><h3>Rotation + opening</h3><p>The WWR and lux values are read back down to brick scale. Each brick's rotation angle and opening size follow the same gradient, so the masonry pattern visibly tracks the light behind it.</p></div>
   </div>
   <div class="card" style="margin-top:1rem">
     <h3>What the definition is doing, in outline</h3>
@@ -86,7 +84,7 @@ section.page{padding:1.6rem 0 3rem}
     <b>brick.rotation</b>  = map(wwr, angle_min, angle_max)
     <b>brick.opening</b>   = map(lux_map[zone], opening_min, opening_max)</div>
     <p class="note">Higher target daylight in a zone pushes its WWR up, which in turn opens the
-      brick rotation and opening further in that region — and pulls both back down where the
+      brick rotation and opening further in that region and pulls both back down where the
       function behind the wall calls for less light or more privacy.</p>
   </div>
 </section>
@@ -94,7 +92,7 @@ section.page{padding:1.6rem 0 3rem}
 <section class="page">
   <span class="eyebrow">Reading the pattern</span>
   <h2 style="margin-top:.5rem">Light gradient, in brick</h2>
-  <p class="sub">A schematic reading of the logic above — brick opening increasing from left to
+  <p class="sub">A schematic reading of the logic above, with brick openings increasing from left to
     right as the target daylight rises across the façade. The generated definition produces the
     same gradient directly from the lux analysis, not from a manually drawn ramp.</p>
   <div class="brickviz" id="brickviz"></div>
@@ -125,7 +123,7 @@ section.page{padding:1.6rem 0 3rem}
 
 </div>
 
-<footer class="site">Gamila Wael · Computational Design Portfolio · A-103 Parametric Brick Façade</footer>
+<footer class="site">Gamila Wael Youness · Computational Design Portfolio · A-103 Parametric Brick Façade</footer>
 
 <script>
 // schematic light-gradient brick grid — purely illustrative of the logic described above

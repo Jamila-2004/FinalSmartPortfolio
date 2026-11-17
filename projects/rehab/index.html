@@ -3,8 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Healing Architecture ML — El Minya Rehab Center</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<title>Healing Architecture ML | El Minya Rehab Center</title>
 <style>
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
 :root{
@@ -13,7 +12,7 @@
   --orange:#8a5a40;--rose:#7e4236;--grad:linear-gradient(135deg,#7e4236,#4f5345);--r:14px;
 }
 html{scroll-behavior:smooth}
-body{font-family:Inter,sans-serif;background:var(--bg);color:var(--tx);line-height:1.6}
+body{font-family:'Times New Roman', Times, serif;background:var(--bg);color:var(--tx);line-height:1.6}
 a{color:var(--teal);text-decoration:none}
 .wrap{max-width:1080px;margin:0 auto;padding:0 1.3rem}
 /* nav */
@@ -72,7 +71,7 @@ td b{color:var(--tx)}
 .ctrl label b{color:var(--teal)}
 input[type=range]{width:100%;accent-color:var(--teal);cursor:pointer}
 .seg{display:flex;gap:.3rem;flex-wrap:wrap}
-.seg button{flex:1;min-width:64px;padding:.4rem;border:1px solid var(--line);background:var(--card);color:var(--tx2);border-radius:8px;font-size:.76rem;cursor:pointer;font-weight:500}
+.seg button{font-family:inherit;flex:1;min-width:64px;padding:.4rem;border:1px solid var(--line);background:var(--card);color:var(--tx2);border-radius:8px;font-size:.76rem;cursor:pointer;font-weight:500}
 .seg button.on{background:rgba(126,66,54,.15);color:var(--teal);border-color:var(--teal)}
 .score{text-align:center;padding:1rem;border-radius:12px;background:rgba(126,66,54,.06);border:1px solid var(--line);margin-bottom:.9rem}
 .score .n{font-size:3rem;font-weight:800;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;line-height:1}
@@ -130,20 +129,20 @@ footer{border-top:1px solid var(--line);padding:1.6rem;text-align:center;color:v
 
 <!-- OBJECTIVE -->
 <section class="page on" id="objective">
-  <span class="tag">El Minya · Drug-Rehabilitation Center</span>
+  <span class="tag">El Minya · Drug Rehabilitation Center</span>
   <h1>Architecture that adapts to the <span class="hl">patient</span>,<br>not the other way around.</h1>
-  <p class="sub">A machine-learning model reads a patient's <b>psychology</b> and the <b>site environment</b>, then recommends the <b>architectural design</b> for their recovery phase — and scores how well that design supports healing.</p>
+  <p class="sub">A machine learning model reads a patient's <b>psychology</b> and the <b>site environment</b>, then recommends the <b>architectural design</b> for their recovery phase and scores how well that design supports healing.</p>
   <div class="imgwrap" style="margin-bottom:1.4rem"><img class="shot" src="websitepic.jpg" alt="El Minya Healing Architecture" onerror="this.parentElement.style.display='none'"></div>
   <div class="g2">
     <div class="card" style="border-top:3px solid var(--rose)">
       <h3 style="color:var(--rose)">The problem</h3>
       <div class="imgwrap" style="margin:.6rem 0"><img class="shot" src="problem.png" alt="Problem" onerror="this.parentElement.style.display='none'"></div>
-      <p>Rehab centers are built <b>one-size-fits-all</b>. But a high-trauma detox patient needs dim, quiet, private refuge — while a rehab-phase patient needs daylight, openness and belonging. The same room can't serve both.</p>
+      <p>Rehab centers are built <b>to a single standard</b>. But a detox patient with severe trauma needs dim, quiet, private refuge, while a patient in the rehab phase needs daylight, openness and belonging. The same room can't serve both.</p>
     </div>
     <div class="card" style="border-top:3px solid var(--emer)">
       <h3 style="color:var(--emer)">The solution</h3>
       <div class="imgwrap" style="margin:.6rem 0"><img class="shot" src="solution.png" alt="Solution" onerror="this.parentElement.style.display='none'"></div>
-      <p>Map <b>psychology + environment → design</b> per phase: ceiling, corridor width, daylight, shading screen, privacy, social spaces — plus a 0–100 <b>healing score</b>. Served live through a Grasshopper node.</p>
+      <p>Map <b>psychology + environment → design</b> per phase: ceiling, corridor width, daylight, shading screen, privacy, social spaces, plus a 0 to 100 <b>healing score</b>. Served live through a Grasshopper node.</p>
     </div>
   </div>
   <div class="pipe"><b>GH + Ladybug</b><span>→</span><b>CSV dataset</b><span>→</span><b>Clean + train</b><span>→</span><b>model.pkl</b><span>→</span><b>Live recommendations + score</b></div>
@@ -153,27 +152,21 @@ footer{border-top:1px solid var(--line);padding:1.6rem;text-align:center;color:v
 <section class="page" id="gh">
   <span class="tag">B · Grasshopper Model</span>
   <h2>Phases, orientation & climate</h2>
-  <p class="sub">Patients are organized into <b>3 recovery phases</b> mapped to <b>4 clusters</b> with fixed orientations, tuned to El Minya's hot-desert (BWh) climate.</p>
+  <p class="sub">Patients are organized into <b>3 recovery phases</b> mapped to <b>4 clusters</b> with fixed orientations, tuned to El Minya's hot desert (BWh) climate.</p>
   <div class="g4">
     <div class="card" style="border-top:3px solid var(--teal)"><b>C1</b> · Detox-2<br><span class="chip b">NW</span></div>
-    <div class="card" style="border-top:3px solid var(--emer)"><b>C2</b> · Detox-1 sensitive<br><span class="chip">NE — gentle AM light</span></div>
+    <div class="card" style="border-top:3px solid var(--emer)"><b>C2</b> · Detox-1 sensitive<br><span class="chip">NE | gentle AM light</span></div>
     <div class="card" style="border-top:3px solid var(--orange)"><b>C3</b> · Detox-1<br><span class="chip b">NW</span></div>
-    <div class="card" style="border-top:3px solid var(--blue)"><b>C4</b> · Rehab-therapy<br><span class="chip b">NW</span></div>
+    <div class="card" style="border-top:3px solid var(--blue)"><b>C4</b> · Rehab therapy<br><span class="chip b">NW</span></div>
   </div>
-  <p class="note"><b>NW = harsh</b> afternoon sun (deep shading, tight glazing) · <b>NE = gentle</b> morning light (sensory-sensitive / high-trauma patients).</p>
-  <h3 style="margin-top:1.6rem">Environmental analysis — Ladybug under the real El Minya EPW</h3>
-  <div class="g2" style="margin-top:.6rem">
-    <div class="imgwrap"><img class="shot" src="gh_basecase.png" onerror="this.parentElement.style.display='none'"><div class="cap">Parametric base-case room: window + overhang, NW/NE</div></div>
-    <div class="imgwrap"><img class="shot" src="gh_sunpath.png" onerror="this.parentElement.style.display='none'"><div class="cap">El Minya sun-path (from EPW)</div></div>
-    <div class="imgwrap"><img class="shot" src="gh_incident_radiation.png" onerror="this.parentElement.style.display='none'"><div class="cap">Summer incident radiation on the facade</div></div>
-    <div class="imgwrap"><img class="shot" src="gh_adaptive_comfort.png" onerror="this.parentElement.style.display='none'"><div class="cap">Adaptive-comfort / ventilation hours</div></div>
-  </div>
+  <p class="note"><b>NW = harsh</b> afternoon sun (deep shading, tight glazing) · <b>NE = gentle</b> morning light (sensory sensitive / high trauma patients).</p>
+  <h3 style="margin-top:1.6rem">Environmental analysis | Ladybug under the real El Minya EPW</h3>
   <h3 style="margin-top:1.6rem">Generative shading screen</h3>
-  <p class="note">The model sets the perforated screen's openness per orientation — the GH façade reads it live from <code>facade_recommendations.csv</code>.</p>
+  <p class="note">The model sets the perforated screen's openness per orientation. The GH façade reads it live from <code>facade_recommendations.csv</code>.</p>
   <div class="g3" style="margin-top:.6rem">
-    <div class="card"><b style="color:var(--teal);font-size:1.4rem">9–18°</b><div style="font-size:.8rem;color:var(--tx2)">NW louver angle · nearly closed against harsh sun</div></div>
-    <div class="card"><b style="color:var(--teal);font-size:1.4rem">34–42°</b><div style="font-size:.8rem;color:var(--tx2)">NE louver angle · more open for gentle light</div></div>
-    <div class="card"><b style="color:var(--teal);font-size:1.4rem">10–70%</b><div style="font-size:.8rem;color:var(--tx2)">openness range, driven by patient + phase</div></div>
+    <div class="card"><b style="color:var(--teal);font-size:1.4rem">9 to 18°</b><div style="font-size:.8rem;color:var(--tx2)">NW louver angle · nearly closed against harsh sun</div></div>
+    <div class="card"><b style="color:var(--teal);font-size:1.4rem">34 to 42°</b><div style="font-size:.8rem;color:var(--tx2)">NE louver angle · more open for gentle light</div></div>
+    <div class="card"><b style="color:var(--teal);font-size:1.4rem">10 to 70%</b><div style="font-size:.8rem;color:var(--tx2)">openness range, driven by patient + phase</div></div>
   </div>
 </section>
 
@@ -184,75 +177,75 @@ footer{border-top:1px solid var(--line);padding:1.6rem;text-align:center;color:v
   <p class="sub">Patient psychology + environment (left) drive the architectural recommendations (right).</p>
   <div class="g2">
     <div class="card">
-      <h3 style="color:var(--teal)">Inputs — patient + site</h3>
+      <h3 style="color:var(--teal)">Inputs | patient + site</h3>
       <table><tbody>
-        <tr><td><b>Depression</b></td><td>0–42</td></tr>
-        <tr><td><b>Anxiety</b></td><td>0–42</td></tr>
-        <tr><td><b>Stress</b></td><td>0–1</td></tr>
-        <tr><td><b>Trauma</b></td><td>0–80</td></tr>
-        <tr><td><b>Substance</b> type + severity</td><td>6 types · 0–1</td></tr>
-        <tr><td><b>Sensory sensitivity</b></td><td>0–1</td></tr>
+        <tr><td><b>Depression</b></td><td>0 to 42</td></tr>
+        <tr><td><b>Anxiety</b></td><td>0 to 42</td></tr>
+        <tr><td><b>Stress</b></td><td>0 to 1</td></tr>
+        <tr><td><b>Trauma</b></td><td>0 to 80</td></tr>
+        <tr><td><b>Substance</b> type + severity</td><td>6 types · 0 to 1</td></tr>
+        <tr><td><b>Sensory sensitivity</b></td><td>0 to 1</td></tr>
         <tr><td><b>Spatial &amp; relapse triggers</b></td><td>categories</td></tr>
         <tr><td><b>Behaviour pattern</b></td><td>3 types</td></tr>
-        <tr><td><b>Privacy need</b></td><td>0–1</td></tr>
-        <tr><td><b>Recovery phase</b></td><td>detox-1/2 · rehab</td></tr>
-        <tr><td><b>Age · Gender</b></td><td>16–60 · F/M</td></tr>
+        <tr><td><b>Privacy need</b></td><td>0 to 1</td></tr>
+        <tr><td><b>Recovery phase</b></td><td>detox 1 or 2 · rehab</td></tr>
+        <tr><td><b>Age · Gender</b></td><td>16 to 60 · F/M</td></tr>
         <tr><td><b>Orientation</b> <span class="chip o">environment</span></td><td>NW / NE</td></tr>
       </tbody></table>
     </div>
     <div class="card">
-      <h3 style="color:var(--emer)">Outputs — 16 design targets + score</h3>
+      <h3 style="color:var(--emer)">Outputs | 16 design targets + score</h3>
       <table><tbody>
-        <tr><td><b>Ceiling height</b></td><td>4.5–5.2 m</td></tr>
-        <tr><td><b>Corridor width</b></td><td>3.5–5 m</td></tr>
-        <tr><td><b>Daylight / glazing</b></td><td>5–60 %</td></tr>
-        <tr><td><b>Shading-screen openness</b></td><td>10–70 %</td></tr>
-        <tr><td><b>Glare control</b></td><td>0–1</td></tr>
-        <tr><td><b>Shading depth</b></td><td>0–1</td></tr>
-        <tr><td><b>Natural ventilation</b></td><td>0–1</td></tr>
-        <tr><td><b>Privacy / enclosure</b></td><td>0–1</td></tr>
-        <tr><td><b>Acoustic comfort</b></td><td>0–1</td></tr>
-        <tr><td><b>Biophilic intensity</b></td><td>0–1</td></tr>
-        <tr><td><b>Light warmth</b></td><td>0–1</td></tr>
-        <tr><td><b>Social gradient</b></td><td>0–1</td></tr>
-        <tr><td><b>Belonging / activity</b></td><td>0–1</td></tr>
-        <tr><td><b>De-escalation</b></td><td>0–1</td></tr>
+        <tr><td><b>Ceiling height</b></td><td>4.5 to 5.2 m</td></tr>
+        <tr><td><b>Corridor width</b></td><td>3.5 to 5 m</td></tr>
+        <tr><td><b>Daylight / glazing</b></td><td>5 to 60 %</td></tr>
+        <tr><td><b>Shading screen openness</b></td><td>10 to 70 %</td></tr>
+        <tr><td><b>Glare control</b></td><td>0 to 1</td></tr>
+        <tr><td><b>Shading depth</b></td><td>0 to 1</td></tr>
+        <tr><td><b>Natural ventilation</b></td><td>0 to 1</td></tr>
+        <tr><td><b>Privacy / enclosure</b></td><td>0 to 1</td></tr>
+        <tr><td><b>Acoustic comfort</b></td><td>0 to 1</td></tr>
+        <tr><td><b>Biophilic intensity</b></td><td>0 to 1</td></tr>
+        <tr><td><b>Light warmth</b></td><td>0 to 1</td></tr>
+        <tr><td><b>Social gradient</b></td><td>0 to 1</td></tr>
+        <tr><td><b>Belonging / activity</b></td><td>0 to 1</td></tr>
+        <tr><td><b>De escalation</b></td><td>0 to 1</td></tr>
         <tr><td><b>Accommodation</b></td><td>multi/shared/private</td></tr>
-        <tr><td><b>Family space</b></td><td>0–1</td></tr>
-        <tr><td><b>Healing score</b></td><td>0–100</td></tr>
+        <tr><td><b>Family space</b></td><td>0 to 1</td></tr>
+        <tr><td><b>Healing score</b></td><td>0 to 100</td></tr>
       </tbody></table>
     </div>
   </div>
-  <p class="note">All inputs are grounded in <b>expert interviews</b> and <b>evidence-based literature</b> — no random or fabricated values.</p>
+  <p class="note">All inputs are grounded in <b>expert interviews</b> and <b>literature grounded in evidence</b>.</p>
 </section>
 
 <!-- ANALYSIS -->
 <section class="page" id="analysis">
   <span class="tag">D · Data &amp; Analysis</span>
-  <h2>500 profiles · 0 nulls · evidence-grounded</h2>
-  <p class="sub">An <b>evidence-grounded simulation</b> (not real records): inputs sampled from validated Egyptian scales + 2 interviews; climate validated in Ladybug.</p>
+  <h2>500 profiles · 0 nulls · evidence grounded</h2>
+  <p class="sub">An <b>evidence grounded simulation</b> (not real records): inputs sampled from validated Egyptian scales + 2 interviews; climate validated in Ladybug.</p>
   <div class="g2">
-    <div class="imgwrap"><img class="shot" src="../outputs/correlation_matrix.png" onerror="this.parentElement.style.display='none'"><div class="cap">Correlation matrix</div></div>
-    <div class="imgwrap"><img class="shot" src="../outputs/heatmap_targets_by_cluster.png" onerror="this.parentElement.style.display='none'"><div class="cap">Mean targets by cluster</div></div>
-    <div class="imgwrap"><img class="shot" src="../outputs/boxplots_by_stage.png" onerror="this.parentElement.style.display='none'"><div class="cap">Key targets by phase</div></div>
-    <div class="imgwrap"><img class="shot" src="../outputs/distributions.png" onerror="this.parentElement.style.display='none'"><div class="cap">Key distributions</div></div>
+    <div class="imgwrap"><img class="shot" src="../../outputs/correlation_matrix.png" onerror="this.parentElement.style.display='none'"><div class="cap">Correlation matrix</div></div>
+    <div class="imgwrap"><img class="shot" src="../../outputs/heatmap_targets_by_cluster.png" onerror="this.parentElement.style.display='none'"><div class="cap">Mean targets by cluster</div></div>
+    <div class="imgwrap"><img class="shot" src="../../outputs/boxplots_by_stage.png" onerror="this.parentElement.style.display='none'"><div class="cap">Key targets by phase</div></div>
+    <div class="imgwrap"><img class="shot" src="../../outputs/distributions.png" onerror="this.parentElement.style.display='none'"><div class="cap">Key distributions</div></div>
   </div>
 </section>
 
 <!-- ML MODEL -->
 <section class="page" id="ml">
   <span class="tag">E · Machine Learning</span>
-  <h2>Multi-output regression</h2>
-  <p class="sub">4 models compared; best chosen by 5-fold CV. The score is <b>one 0–100 number</b> — a weighted 8-pillar evidence rubric scored on the design.</p>
+  <h2>Multi output regression</h2>
+  <p class="sub">4 models compared; best chosen by cross validation with five folds. The score is <b>one 0 to 100 number</b> calculated using a weighted rubric with eight pillars.</p>
   <div class="statrow" id="ml-stats"></div>
   <div class="g2" style="margin-top:1.3rem">
     <div class="card"><h3>Model comparison</h3><table><thead><tr><th>Model</th><th>Test R²</th><th>CV R²</th></tr></thead><tbody id="cmp"></tbody></table></div>
-    <div class="card"><h3>Per-target R² <span id="best" style="color:var(--teal);font-size:.8rem"></span></h3><div id="pertarget" style="max-height:320px;overflow:auto"></div></div>
+    <div class="card"><h3>Per target R² <span id="best" style="color:var(--teal);font-size:.8rem"></span></h3><div id="pertarget" style="max-height:320px;overflow:auto"></div></div>
   </div>
   <div class="card" style="margin-top:1rem">
-    <h3>Healing-score rubric — 8 pillars (one combined score)</h3>
+    <h3>Healing score rubric | 8 pillars (one combined score)</h3>
     <div id="pillars" class="g4" style="margin-top:.5rem"></div>
-    <p class="note">Ulrich supportive design · Terrapin biophilic · trauma-informed structured choice · WELL daylight/acoustic · ASHRAE thermal · stage-appropriate social &amp; belonging.</p>
+    <p class="note">Ulrich supportive design · Terrapin biophilic · trauma informed structured choice · WELL daylight/acoustic · ASHRAE thermal · stage appropriate social &amp; belonging.</p>
   </div>
 </section>
 
@@ -273,7 +266,7 @@ footer{border-top:1px solid var(--line);padding:1.6rem;text-align:center;color:v
       <p class="note">Cluster: <b id="clu" style="color:var(--teal)">—</b></p>
     </div>
     <div>
-      <div class="score"><div class="n" id="sc">—</div><div class="l">HEALING-SUPPORT SCORE / 100</div></div>
+      <div class="score"><div class="n" id="sc">—</div><div class="l">HEALING SUPPORT SCORE / 100</div></div>
       <div class="card recs" id="recs"></div>
     </div>
   </div>
@@ -283,7 +276,7 @@ footer{border-top:1px solid var(--line);padding:1.6rem;text-align:center;color:v
 <section class="page" id="video">
   <span class="tag">G · Demo Video</span>
   <h2>Workflow Demonstration</h2>
-  <p class="sub">Watch the complete workflow from parametric modeling, Ladybug solar simulation, dataset extraction, ML model training, and the real-time Grasshopper prediction node.</p>
+  <p class="sub">Watch the complete workflow from parametric modeling, Ladybug solar simulation, dataset extraction, ML model training, and the Grasshopper prediction node that runs in real time.</p>
   
   <div class="card" style="max-width: 800px; margin: 0 auto; padding: 1.5rem;">
     <div class="video-container" style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 8px; border: 1px solid var(--line); background: #000; margin-bottom: 1.5rem;">
@@ -305,23 +298,23 @@ footer{border-top:1px solid var(--line);padding:1.6rem;text-align:center;color:v
   <span class="tag">H · Downloads</span>
   <h2>Project files</h2>
   <div class="g2" style="margin-top:.6rem">
-    <a class="dl" href="../data/patient_design_dataset.csv" download><span class="ic">📊</span><div><div class="nm">dataset.csv</div><div class="ds">500 profiles × 35 cols</div></div></a>
-    <a class="dl" href="../models/model.pkl" download><span class="ic">🤖</span><div><div class="nm">model.pkl</div><div class="ds">trained sklearn pipeline</div></div></a>
-    <a class="dl" href="../gh/predict_node.py" download><span class="ic">🐍</span><div><div class="nm">predict_node.py</div><div class="ds">GH predictive node</div></div></a>
-    <a class="dl" href="../data/facade_recommendations.csv" download><span class="ic">🪟</span><div><div class="nm">facade_recommendations.csv</div><div class="ds">screen openness + louver angle per phase × orientation</div></div></a>
-    <a class="dl" href="../Trial.gh" download><span class="ic">🏗️</span><div><div class="nm">Grasshopper file</div><div class="ds">parametric + node</div></div></a>
-    <a class="dl" href="../models/model_meta.json" download><span class="ic">📋</span><div><div class="nm">model_meta.json</div><div class="ds">metrics + features</div></div></a>
+    <a class="dl" href="../../data/patient_design_dataset.csv" download><span class="ic">📊</span><div><div class="nm">dataset.csv</div><div class="ds">500 profiles × 35 cols</div></div></a>
+    <a class="dl" href="../../models/model.pkl" download><span class="ic">🤖</span><div><div class="nm">model.pkl</div><div class="ds">trained sklearn pipeline</div></div></a>
+    <a class="dl" href="../../gh/predict_node.py" download><span class="ic">🐍</span><div><div class="nm">predict_node.py</div><div class="ds">GH predictive node</div></div></a>
+    <a class="dl" href="../../data/facade_recommendations.csv" download><span class="ic">🪟</span><div><div class="nm">facade_recommendations.csv</div><div class="ds">screen openness + louver angle per phase × orientation</div></div></a>
+    <a class="dl" href="../../Trial.gh" download><span class="ic">🏗️</span><div><div class="nm">Grasshopper file</div><div class="ds">parametric + node</div></div></a>
+    <a class="dl" href="../../models/model_meta.json" download><span class="ic">📋</span><div><div class="nm">model_meta.json</div><div class="ds">metrics + features</div></div></a>
     <a class="dl" href="https://newgizauniversty-my.sharepoint.com/:v:/g/personal/gamila_wael_2022_ngu_edu_eg/IQBJuURf6GnpS4n6PEsrfr14AUdXMBcEnYZfRDfYPDKEkKQ?e=Wygzck" target="_blank"><span class="ic">🎥</span><div><div class="nm">Demo Video</div><div class="ds">Workflow demonstration on SharePoint</div></div></a>
-    <a class="dl" href="../docs/data_provenance.md" download><span class="ic">📜</span><div><div class="nm">data_provenance.md</div><div class="ds">what the data is</div></div></a>
+    <a class="dl" href="../../docs/data_provenance.md" download><span class="ic">📜</span><div><div class="nm">data_provenance.md</div><div class="ds">what the data is</div></div></a>
   </div>
 </section>
 
 </div>
 
-<footer>Healing Architecture ML · CCAS 2.6 · Spring 2026 · El Minya Drug-Rehabilitation Center</footer>
+<footer>Healing Architecture ML · CCAS 2.6 · Spring 2026 · El Minya Drug Rehabilitation Center</footer>
 
-<script src="../models/model_meta.js"></script>
-<script src="../outputs/phase_summary.js"></script>
+<script src="../../models/model_meta.js"></script>
+<script src="../../outputs/phase_summary.js"></script>
 <script>
 // ---- page switcher ----
 const links=document.querySelectorAll('nav a'),pages=document.querySelectorAll('.page');
@@ -335,12 +328,12 @@ links.forEach(a=>a.onclick=()=>{const p=a.dataset.p;
   window.scrollTo(0,0);});
 
 // ---- live ML metrics from model_meta.js ----
-const TL={Y1_ceiling_h:'Ceiling',Y2_volume_idx:'Corridor',Y3_daylight_pct:'Daylight%',Y4_glare_ctrl:'Glare',Y5_shading:'Shading',Y6_ventilation:'Ventilation',Y7_privacy:'Privacy',Y8_acoustic:'Acoustic',Y9_biophilic:'Biophilic',Y10_light_warmth:'Light warmth',Y11_social_gradient:'Social',Y12_belonging:'Belonging',Y13_deescalation:'De-escalation',Y14_accommodation:'Accommodation',Y15_family_space:'Family',Y16_screen_openness:'Screen open',Y_score:'Healing score'};
+const TL={Y1_ceiling_h:'Ceiling',Y2_volume_idx:'Corridor',Y3_daylight_pct:'Daylight%',Y4_glare_ctrl:'Glare',Y5_shading:'Shading',Y6_ventilation:'Ventilation',Y7_privacy:'Privacy',Y8_acoustic:'Acoustic',Y9_biophilic:'Biophilic',Y10_light_warmth:'Light warmth',Y11_social_gradient:'Social',Y12_belonging:'Belonging',Y13_deescalation:'Deescalation',Y14_accommodation:'Accommodation',Y15_family_space:'Family',Y16_screen_openness:'Screen open',Y_score:'Healing score'};
 const M=window.MODEL_META;
 if(M){
   document.getElementById('ml-stats').innerHTML=
     `<div class="stat"><b>${(M.overall_r2*100).toFixed(0)}%</b><span>Overall R²</span></div>
-     <div class="stat"><b>${(M.cv_r2*100).toFixed(0)}%</b><span>5-fold CV R²</span></div>
+     <div class="stat"><b>${(M.cv_r2*100).toFixed(0)}%</b><span>cross validation with five folds R²</span></div>
      <div class="stat"><b>${(M.per_target.Y_score.r2*100).toFixed(0)}%</b><span>Score R²</span></div>
      <div class="stat"><b>${M.best_model}</b><span>best model</span></div>`;
   document.getElementById('best').textContent='('+M.best_model+')';

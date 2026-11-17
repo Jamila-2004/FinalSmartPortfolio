@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A-102 · Room Finisher (Revit Plugin)</title>
+<link rel="stylesheet" href="../../assets/style.css">
+<style>
+.hero{padding:2.6rem 0 1rem}
+.pipe{display:flex;flex-wrap:wrap;gap:.4rem;align-items:center;font-family:var(--mono);font-size:.75rem;color:var(--ink2);margin-top:1.2rem}
+.pipe b{color:var(--ink);background:var(--card);border:1px solid var(--line);padding:.32rem .6rem;border-radius:8px;font-weight:500}
+.pipe span{color:var(--rust)}
+
+.diagram{font-family:var(--mono);font-size:.76rem;line-height:1.85;background:var(--ink);color:#e9e2d4;border-radius:12px;padding:1.2rem 1.4rem;overflow-x:auto;white-space:pre}
+.diagram b{color:#e2a37a}
+.diagram i{color:#9db3a2;font-style:normal}
+
+.feat{border-top:3px solid var(--rust);padding:1.1rem 1.1rem 1.2rem}
+.feat h3{font-size:.98rem}
+.feat p{font-size:.82rem;margin:0}
+.feat .n{font-family:var(--mono);font-size:.68rem;color:var(--mut);letter-spacing:1px}
+
+.aiflow{display:flex;flex-direction:column;gap:.6rem;margin-top:1rem}
+.aistep{display:flex;gap:.8rem;align-items:flex-start}
+.aistep .dot{flex:0 0 26px;height:26px;border-radius:50%;background:var(--grad);color:#fff;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:.72rem;font-weight:600}
+.aistep p{margin:0;font-size:.86rem}
+
+.videowrap{position:relative;border-radius:12px;overflow:hidden;border:1px solid var(--line2);background:#000}
+video{width:100%;display:block}
+
+.dl{display:flex;align-items:center;gap:.8rem;padding:.9rem 1.1rem;border:1px solid var(--line);border-radius:10px;background:var(--card);color:var(--ink)}
+.dl:hover{border-color:var(--rust)}
+.dl .ic{font-size:1.2rem}.dl .nm{font-weight:600;font-size:.88rem;font-family:var(--display)}.dl .ds{font-size:.74rem;color:var(--mut);font-family:var(--mono)}
+
+.note{font-size:.78rem;color:var(--mut);margin-top:.6rem}
+section.page{padding:1.6rem 0 3rem}
+</style>
+</head>
+<body class="gridbg">
+
+<nav class="top"><div class="nav-in">
+  <div class="mark">Room Finisher <span>·</span> A-102</div>
+  <div class="crumbs"><a href="../../index.html">← Portfolio</a></div>
+</div></nav>
+
+<div class="wrap">
+
+<section class="hero">
+  <div class="eyebrow">A-102 · Revit Add In</div>
+  <h1>Room finishes, edited like<br><span class="hl">a spreadsheet</span>, committed like Revit.</h1>
+  <p class="sub">A production quality Revit 2025/2026 add in (WPF + MVVM) that loads every room from
+    the active model into an editable schedule. Architects bulk edit finishes, save and load
+    templates, run validation and quality checks, review analytics, and push every change back to
+    Revit in one single transaction, with an optional AI assistant proposing finishes for the
+    rooms left blank.</p>
+  <div class="pipe"><b>FilteredElementCollector</b><span>→</span><b>editable grid (modeless WPF)</b><span>→</span><b>bulk edit / templates / QA</b><span>→</span><b>Review Changes</b><span>→</span><b>single transaction commit</b></div>
+</section>
+
+<section class="page">
+  <span class="eyebrow">Why it exists</span>
+  <div class="g2" style="margin-top:.8rem">
+    <div class="card" style="border-top:3px solid var(--rust)">
+      <h3 style="color:var(--rust)">The problem</h3>
+      <p>Specifying finishes room by room in Revit means opening the Properties palette for one
+        room at a time, editing the same four or five fields, closing it, and repeating, on a real
+        project, hundreds of times. It's slow, and it's easy to miss a room or mistype a finish.</p>
+    </div>
+    <div class="card" style="border-top:3px solid var(--sage)">
+      <h3 style="color:var(--sage)">The approach</h3>
+      <p>Collect every room once, edit all of them in one Excel like grid with search, filters and
+        bulk actions, validate and preview the effect of every change, then commit them all to the
+        model together, with a full audit log and an undo path before anything is written.</p>
+    </div>
+  </div>
+</section>
+
+<section class="page">
+  <span class="eyebrow">Architecture</span>
+  <h2 style="margin-top:.5rem">Clean layers, one bridge to Revit</h2>
+  <p class="sub">No Revit API calls live in the ViewModels. Because the window is modeless, every
+    model read or write after the first load is marshalled onto Revit's own thread through a single
+    <code>ExternalEvent</code>, the only door between the WPF UI and the live document.</p>
+  <div class="diagram">Commands/        <b>OpenRoomFinisherCommand</b>     <i>— IExternalCommand: first room read + show window</i>
+App/             <b>RoomFinisherApplication</b>    <i>— IExternalApplication: ribbon tab + button</i>
+Revit/           <b>RevitRequestRouter</b>         <i>— generic IExternalEventHandler (UI ↔ Revit bridge)</i>
+                 <b>RevitWorker</b>                <i>— IRevitWorker impl (Collect / ApplyChanges)</i>
+                 <b>RevitContext</b>                <i>— singleton window + router + WPF Application guard</i>
+RevitServices/   <b>RoomCollectorService</b>       <i>— FilteredElementCollector → RoomData</i>
+                 <b>RoomParameterService</b>       <i>— BuiltInParameter map, units, read only handling</i>
+                 <b>RevitTransactionService</b>    <i>— the single commit transaction</i>
+ViewModels/      <b>MainViewModel</b> (orchestrator), <b>RoomViewModel</b> (dirty/undo),
+                 <b>BulkEditViewModel · ReviewChangesViewModel · AnalyticsViewModel</b>
+                 <b>QualityReportViewModel · ApplyTemplateViewModel</b>
+Services/        <b>SearchService · TemplateService · BulkEditService · UndoService</b>
+                 <b>ChangeTrackingService · ExcelExportService · AnalyticsService</b>
+                 <b>QualityCheckService · AuditLogService · AiFinishService</b></div>
+  <p class="note"><b>Ceiling height</b> is not a native Revit room parameter, it's resolved by a
+    configurable parameter name, and left read only/blank rather than fabricated if the model has
+    none. Units round trip through Revit's own value string parser, so mm, m, and feet inches all
+    behave correctly. Charts use OxyPlot instead of a SkiaSharp based library, to avoid native
+    binary conflicts inside Revit's shared AppDomain.</p>
+</section>
+
+<section class="page">
+  <span class="eyebrow">Feature set</span>
+  <h2 style="margin-top:.5rem">Everything a finish pass needs, in one window</h2>
+  <div class="g3" style="margin-top:.9rem">
+    <div class="card feat"><div class="n">01</div><h3>Editable grid</h3><p>Every room, grouped by level then number. Finish columns are combo boxes, pick a default or type a custom value. Edited cells turn yellow and count toward "N modified rooms."</p></div>
+    <div class="card feat"><div class="n">02</div><h3>Search + level filter</h3><p>Real time search by name, number, or department, combined with a level filter.</p></div>
+    <div class="card feat"><div class="n">03</div><h3>Bulk edit</h3><p>Select multiple rows, choose a target field and value, apply to all of them at once, fifty clicks become one.</p></div>
+    <div class="card feat"><div class="n">04</div><h3>Templates</h3><p>Save or load JSON finish templates, scoped to All / Selected / By Department, with a preview before anything applies.</p></div>
+    <div class="card feat"><div class="n">05</div><h3>Quality check</h3><p>Flags duplicate numbers, duplicate names, empty finishes, casing inconsistencies, and fuzzy near duplicates like "Marble" / "Marbel." Scores the model 100 minus errors×5 minus warnings×1.</p></div>
+    <div class="card feat"><div class="n">06</div><h3>Analytics</h3><p>Live finish distributions, counts, percentages, pie and bar charts, that update as you edit.</p></div>
+    <div class="card feat"><div class="n">07</div><h3>Excel export</h3><p>Exports the currently visible (filtered) rows to a formatted .xlsx with a frozen, bold header and auto fit columns.</p></div>
+    <div class="card feat"><div class="n">08</div><h3>Review → commit</h3><p>Validates, shows a before/after Review Changes window, then writes everything in one transaction and reports updated/failed counts, never a partial write.</p></div>
+  </div>
+</section>
+
+<section class="page">
+  <span class="eyebrow">AI Finish Assistant</span>
+  <h2 style="margin-top:.5rem">Suggests. Never writes on its own.</h2>
+  <p class="sub">AI Assist analyzes the selected rooms (or all of them) and proposes wall, floor,
+    ceiling, and base finishes, filling in the empty ones and flagging existing finishes that don't
+    suit a room's function, reusing the project's own finish palette for consistency. Works with
+    Google Gemini or Anthropic Claude, direct HTTPS calls to each provider's REST API, deliberately
+    without an SDK, to avoid adding another dependency inside Revit's process.</p>
+  <div class="card">
+    <div class="aiflow">
+      <div class="aistep"><div class="dot">1</div><p>Pick a provider in AI Settings and paste a matching API key, a Google key for Gemini, an <code>sk-ant-…</code> key for Claude.</p></div>
+      <div class="aistep"><div class="dot">2</div><p>Run AI Assist on up to 80 rooms. Each suggestion comes back with a short reason, hygiene, moisture, durability, traffic, or acoustics.</p></div>
+      <div class="aistep"><div class="dot">3</div><p>Every suggestion appears in an approval window with a checkbox, current value → suggested value → reason. Untick anything you don't want.</p></div>
+      <div class="aistep"><div class="dot">4</div><p>Accepted changes land in the grid as ordinary edits, then go through the same validation → Review → single transaction commit as everything else. Nothing is written to Revit by the AI directly.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="page">
+  <span class="eyebrow">Demo</span>
+  <h2 style="margin-top:.5rem">Workflow walkthrough</h2>
+  <p class="sub">Launch, load, search and bulk edit, apply a template, catch quality issues, and
+    commit, in one pass.</p>
+  <div class="videowrap"><video controls preload="metadata"><source src="demo.mp4" type="video/mp4">If the embedded video is unavailable, download it below.</video></div>
+</section>
+
+<section class="page">
+  <span class="eyebrow">Downloads</span>
+  <h2 style="margin-top:.5rem">Project files</h2>
+  <div class="g2" style="margin-top:.6rem">
+    <a class="dl" href="RoomFinisher-Source.zip" download><span class="ic">🗂️</span><div><div class="nm">RoomFinisher Source.zip</div><div class="ds">full add in source (C# / WPF / MVVM)</div></div></a>
+    <a class="dl" href="README.md" download><span class="ic">📖</span><div><div class="nm">README.md</div><div class="ds">build, deploy &amp; usage docs</div></div></a>
+    <a class="dl" href="demo.mp4" download><span class="ic">🎥</span><div><div class="nm">demo.mp4</div><div class="ds">workflow walkthrough</div></div></a>
+  </div>
+</section>
+
+<section class="page" style="padding-top:0">
+  <div class="titleblock">
+    <div class="tb-row">
+      <div class="tb-cell"><span class="k">Project</span><span class="v">Room Finisher</span></div>
+      <div class="tb-cell"><span class="k">Sheet</span><span class="v">A-102</span></div>
+      <div class="tb-cell"><span class="k">Platform</span><span class="v">Revit 2025 / 2026</span></div>
+    </div>
+    <div class="tb-row">
+      <div class="tb-cell"><span class="k">Stack</span><span class="v">.NET 8 · WPF · MVVM</span></div>
+      <div class="tb-cell"><span class="k">Charts</span><span class="v">OxyPlot.Wpf</span></div>
+      <div class="tb-cell"><span class="k">AI</span><span class="v">Claude / Gemini (optional)</span></div>
+    </div>
+  </div>
+</section>
+
+</div>
+
+<footer class="site">Gamila Wael Youness · Computational Design Portfolio · A-102 Room Finisher</footer>
+
+</body>
+</html>
