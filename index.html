@@ -72,12 +72,13 @@
   .sheet-tags{padding-right:0}
   .about{margin-top:1.5rem}
 }
-.sheet:first-child .sheet-body{position:relative;padding-right:200px}
-.journey-start{position:absolute;right:1rem;bottom:1rem;width:160px;height:70px;padding:0;border:0;background:transparent;cursor:pointer;color:#111}
+.sheet:first-child .sheet-body{position:relative}
+.journey-start{position:absolute;right:1rem;bottom:.65rem;width:150px;height:58px;padding:0;border:0!important;border-radius:0;box-shadow:none!important;background:none!important;cursor:pointer;color:#111;appearance:none}
 .journey-start:focus-visible{outline:2px solid var(--rust);outline-offset:3px}
 .journey-scene,.journey-scene.running{background:transparent}
-.journey-start svg{display:block;width:100%;height:70px;overflow:visible}
-@media(max-width:700px){.sheet:first-child .sheet-body{padding-right:1.1rem;padding-bottom:6rem}}
+.journey-start svg{display:block;width:100%;height:40px;overflow:visible}
+.journey-label{display:block;font-family:var(--body);font-size:.7rem;line-height:18px;color:var(--ink)}
+@media(max-width:700px){.sheet:first-child .sheet-body{padding-bottom:5rem}}
 </style>
 </head>
 <body class="gridbg">
@@ -125,7 +126,7 @@
 <path id="healing-road" d="M15 70C75 80 85 40 135 52S200 65 204 25" stroke="#111" stroke-width="1.8" stroke-dasharray="2 6" fill="none" stroke-linecap="round"/>
 <g class="inline-person" fill="#111" transform="translate(15 70)"><circle cy="-22" r="3.5"/><path d="M-3-18Q0-20 3-18L5-6H2L3 0H0L-1-6-2 0H-5L-3-6H-5Z"/></g>
 <circle cx="204" cy="25" r="4" fill="#111"/>
-</svg></div></button>
+</svg></div><span class="journey-label">Journey toward healing →</span></button>
     </div>
   </div>
 
