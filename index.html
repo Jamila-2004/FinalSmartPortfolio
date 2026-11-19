@@ -62,22 +62,6 @@
 /* ---- about strip ---- */
 .about{margin-top:2.6rem}
 .about .eyebrow::before{display:none}
-.journey-start{position:relative;z-index:1;display:inline-flex;align-items:center;gap:.6rem;border:1px solid var(--line2);border-radius:8px;background:var(--paper);color:var(--ink);padding:.5rem .8rem;font:inherit;cursor:pointer;min-height:44px}
-.journey-start svg{width:20px;height:32px}
-.journey-dialog{margin:auto;width:min(620px,calc(100% - 2rem));border:1px solid var(--line2);border-radius:14px;padding:1.5rem;background:var(--paper);color:var(--ink)}
-.journey-dialog::backdrop{background:rgba(0,0,0,.65)}
-.journey-dialog h2{font-size:1.5rem}
-.journey-scene{margin:1rem 0;border-radius:10px;overflow:hidden;background:#353737;transition:background 4s}
-.journey-scene svg{display:block;width:100%;height:auto}
-.journey-scene.running{background:#f1e9df}
-.journey-person{transform:translateX(0)}
-.running .journey-person{animation:journey-walk 5s ease-in-out forwards}
-.journey-sun{opacity:0;transition:opacity 3s}
-.running .journey-sun{opacity:1}
-.journey-close{float:right;border:0;background:transparent;color:var(--ink);font:inherit;padding:.4rem;cursor:pointer}
-.journey-status{min-height:1.6em}
-@keyframes journey-walk{0%{transform:translateX(0)}45%{transform:translateX(210px)}60%{transform:translateX(250px)}100%{transform:translateX(470px)}}
-@media(prefers-reduced-motion:reduce){.running .journey-person{animation-duration:.1s}.journey-scene,.journey-sun{transition-duration:.1s}}
 .skillrow{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:.9rem}
 .skillrow span{font-family:var(--mono);font-size:.72rem;border:1px solid var(--line2);padding:.32rem .65rem;border-radius:7px;color:var(--ink2)}
 @media(max-width:700px){
@@ -88,14 +72,12 @@
   .sheet-tags{padding-right:0}
   .about{margin-top:1.5rem}
 }
-.sheet:first-child .sheet-body{display:grid;grid-template-columns:minmax(0,1fr) 230px;column-gap:1.5rem}
-.sheet:first-child .sheet-body>h3,.sheet:first-child .sheet-body>p,.sheet:first-child .sheet-tags{grid-column:1}
-.sheet:first-child .journey-start{grid-column:2;grid-row:1/4;display:block;width:100%;padding:0;align-self:center;overflow:hidden}
-.journey-start .journey-scene{margin:0;background:#484b46;transition:background 5s}
-.journey-start .journey-scene.running{background:var(--paper)}
-.journey-start .journey-scene svg{width:100%;height:auto}
-.journey-start span{display:block;padding:.5rem;font-size:.75rem}
-@media(max-width:700px){.sheet:first-child .sheet-body{display:block}.sheet:first-child .journey-start{width:210px;margin:1rem 0 0 auto}}
+.sheet:first-child .sheet-body{position:relative;padding-right:200px}
+.journey-start{position:absolute;right:1rem;bottom:1rem;width:160px;height:70px;padding:0;border:0;background:transparent;cursor:pointer;color:#111}
+.journey-start:focus-visible{outline:2px solid var(--rust);outline-offset:3px}
+.journey-scene,.journey-scene.running{background:transparent}
+.journey-start svg{display:block;width:100%;height:70px;overflow:visible}
+@media(max-width:700px){.sheet:first-child .sheet-body{padding-right:1.1rem;padding-bottom:6rem}}
 </style>
 </head>
 <body class="gridbg">
@@ -139,13 +121,11 @@
         architectural design for their recovery phase (ceiling height, daylight, shading, and privacy)
         and scores how well that design supports healing, served live through a Grasshopper node.</p>
       <div class="sheet-tags"><span class="chip">Ladybug + climate sim</span><span class="chip b">Multi output regression</span><span class="chip o">El Minya rehab center</span></div>
-      <button class="journey-start" type="button" aria-label="Start the healing journey and open Healing Architecture ML"><div class="journey-scene"><svg viewBox="0 0 220 180" aria-hidden="true">
-<circle class="journey-sun" cx="179" cy="25" r="17" fill="#c5ad75"/>
-<path id="healing-road" d="M30 152C145 159 194 129 115 112S22 77 112 70S194 35 174 25" stroke="#d8d0bf" stroke-width="12" fill="none" stroke-linecap="round"/>
-<g class="inline-person" fill="#111" transform="translate(30 152)"><circle cy="-22" r="3.5"/><path d="M-3-18Q0-20 3-18L5-6H2L3 0H0L-1-6-2 0H-5L-3-6H-5Z"/></g>
-<g fill="#bcb8a9" stroke="#30332c" stroke-width="1.4"><path d="M84 77V46h42v31h-14V61H98v16Z"/><path d="M79 46 105 32 131 46Z" fill="#4f5345"/><path d="M90 51h6v7h-6Zm25 0h6v7h-6Z" fill="#eee8da"/></g>
-<circle cx="174" cy="25" r="4" fill="#4f5345"/>
-</svg></div><span>Press the person to begin →</span></button>
+      <button class="journey-start" type="button" aria-label="Press the person to follow the path and open Healing Architecture ML"><div class="journey-scene"><svg viewBox="0 0 220 90" aria-hidden="true">
+<path id="healing-road" d="M15 70C75 80 85 40 135 52S200 65 204 25" stroke="#111" stroke-width="1.8" stroke-dasharray="2 6" fill="none" stroke-linecap="round"/>
+<g class="inline-person" fill="#111" transform="translate(15 70)"><circle cy="-22" r="3.5"/><path d="M-3-18Q0-20 3-18L5-6H2L3 0H0L-1-6-2 0H-5L-3-6H-5Z"/></g>
+<circle cx="204" cy="25" r="4" fill="#111"/>
+</svg></div></button>
     </div>
   </div>
 
@@ -217,14 +197,12 @@ function resetJourney() {
   clearTimeout(journeyTimer);
   scene.classList.remove('running');
   button.removeAttribute('aria-disabled');
-  person.setAttribute('transform', 'translate(30 152)');
-  button.querySelector('span').textContent = 'Press the person to begin →';
+  person.setAttribute('transform', 'translate(15 70)');
 }
 button.addEventListener('click', () => {
   if (scene.classList.contains('running')) return;
   scene.classList.add('running');
   button.setAttribute('aria-disabled', 'true');
-  button.querySelector('span').textContent = 'A journey toward healing…';
   const duration = matchMedia('(prefers-reduced-motion: reduce)').matches ? 100 : 5000;
   const start = performance.now();
   function move(now) {
