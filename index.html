@@ -74,12 +74,12 @@
 }
 .sheet:first-child .sheet-body{position:relative}
 .sheet:first-child{cursor:pointer}
-.journey-start{position:absolute;right:1rem;bottom:.65rem;width:180px;height:66px;padding:0;border:0!important;border-radius:0;box-shadow:none!important;background:none!important;cursor:pointer;color:#111;appearance:none}
+.journey-start{position:absolute;right:2.5rem;bottom:.5rem;width:230px;height:68px;padding:0;border:0!important;border-radius:0;box-shadow:none!important;background:none!important;cursor:pointer;color:#111;appearance:none}
 .journey-start:focus-visible{outline:2px solid var(--rust);outline-offset:3px}
 .journey-scene,.journey-scene.running{background:transparent}
 .journey-start svg{display:block;width:100%;height:48px;overflow:visible}
-.journey-label{display:block;font-family:var(--body);font-size:.7rem;line-height:18px;color:var(--ink)}
-@media(max-width:700px){.sheet:first-child .sheet-body{padding-bottom:5rem}}
+.journey-label{display:block;font-family:var(--body);font-size:.8rem;line-height:20px;color:var(--ink)}
+@media(max-width:700px){.sheet:first-child .sheet-body{padding-bottom:6rem}.journey-start{width:min(230px,calc(100% - 2rem));right:1rem}}
 </style>
 </head>
 <body class="gridbg">
@@ -123,11 +123,11 @@
         architectural design for their recovery phase (ceiling height, daylight, shading, and privacy)
         and scores how well that design supports healing, served live through a Grasshopper node.</p>
       <div class="sheet-tags"><span class="chip">Ladybug + climate sim</span><span class="chip b">Multi output regression</span><span class="chip o">El Minya rehab center</span></div>
-      <button class="journey-start" type="button" aria-label="Press the person to follow the path and open Healing Architecture ML"><div class="journey-scene"><svg viewBox="0 0 220 90" aria-hidden="true">
+      <button class="journey-start" type="button" aria-label="Press the person to follow the path and open Healing Architecture ML"><div class="journey-scene"><svg viewBox="0 0 220 90" preserveAspectRatio="none" aria-hidden="true">
 <path id="healing-road" d="M15 70C75 80 85 40 135 52S200 65 204 25" stroke="#111" stroke-width="1.8" stroke-dasharray="2 6" fill="none" stroke-linecap="round"/>
 <g class="inline-person" fill="#111" transform="translate(15 70)"><circle cy="-22" r="3.5"/><path d="M-3-18Q0-20 3-18L5-6H2L3 0H0L-1-6-2 0H-5L-3-6H-5Z"/></g>
 <circle cx="204" cy="25" r="4" fill="#111"/>
-</svg></div><span class="journey-label">Journey toward healing →</span></button>
+</svg></div><span class="journey-label">Journey towards healing →</span></button>
     </div>
   </div>
 
