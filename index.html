@@ -13,7 +13,7 @@
 .hero-photo-frame{position:absolute;inset:0}
 .hero-photo-frame img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 55%}
 .hero-photo::after{content:"";position:absolute;inset:0;z-index:0;background:linear-gradient(to top,var(--ink),transparent 85%);opacity:.85;pointer-events:none}
-.hero-photo h1{position:absolute;top:2.25rem;left:calc(100% + 6rem);transform:translateX(-50%);z-index:2;width:max-content;max-width:90%;margin:0;color:var(--ink);font-size:clamp(1.54rem,2.75vw,2.31rem);font-weight:500;line-height:1.08;text-shadow:0 1px 8px var(--paper)}
+.hero-photo h1{position:absolute;top:1.5rem;left:calc(100% + 7.5rem);transform:translateX(-50%);z-index:2;width:max-content;max-width:90%;margin:0;color:var(--ink);font-size:clamp(1.54rem,2.75vw,2.31rem);font-weight:500;line-height:1.08;text-shadow:0 1px 8px var(--paper)}
 .hero-photo h1 span,.hero-photo h1 em{display:block}
 .hero-intro{display:flex;flex-direction:column;align-items:flex-start;justify-content:flex-start;background:var(--paper);padding:8rem clamp(1rem,2.4vw,1.75rem) clamp(1rem,2.4vw,1.75rem)}
 .hero-intro .sub{margin:1.5rem 0 2rem;font-size:1rem;line-height:1.4}
@@ -62,6 +62,22 @@
 /* ---- about strip ---- */
 .about{margin-top:2.6rem}
 .about .eyebrow::before{display:none}
+.journey-start{position:relative;z-index:1;display:inline-flex;align-items:center;gap:.6rem;border:1px solid var(--line2);border-radius:8px;background:var(--paper);color:var(--ink);padding:.5rem .8rem;font:inherit;cursor:pointer;min-height:44px}
+.journey-start svg{width:20px;height:32px}
+.journey-dialog{margin:auto;width:min(620px,calc(100% - 2rem));border:1px solid var(--line2);border-radius:14px;padding:1.5rem;background:var(--paper);color:var(--ink)}
+.journey-dialog::backdrop{background:rgba(0,0,0,.65)}
+.journey-dialog h2{font-size:1.5rem}
+.journey-scene{margin:1rem 0;border-radius:10px;overflow:hidden;background:#353737;transition:background 4s}
+.journey-scene svg{display:block;width:100%;height:auto}
+.journey-scene.running{background:#f1e9df}
+.journey-person{transform:translateX(0)}
+.running .journey-person{animation:journey-walk 5s ease-in-out forwards}
+.journey-sun{opacity:0;transition:opacity 3s}
+.running .journey-sun{opacity:1}
+.journey-close{float:right;border:0;background:transparent;color:var(--ink);font:inherit;padding:.4rem;cursor:pointer}
+.journey-status{min-height:1.6em}
+@keyframes journey-walk{0%{transform:translateX(0)}45%{transform:translateX(210px)}60%{transform:translateX(250px)}100%{transform:translateX(470px)}}
+@media(prefers-reduced-motion:reduce){.running .journey-person{animation-duration:.1s}.journey-scene,.journey-sun{transition-duration:.1s}}
 .skillrow{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:.9rem}
 .skillrow span{font-family:var(--mono);font-size:.72rem;border:1px solid var(--line2);padding:.32rem .65rem;border-radius:7px;color:var(--ink2)}
 @media(max-width:700px){
@@ -108,7 +124,6 @@
 <section class="sheets" id="projects">
 
   <div class="sheet">
-    <a class="hitbox" href="projects/rehab/index.html" aria-label="Open Healing Architecture ML"></a>
     <div class="sheet-num"><span>Project</span><b>A-101</b><span>Grasshopper · Ladybug · ML</span></div>
     <div class="sheet-body">
       <h3>Healing Architecture ML</h3>
@@ -116,8 +131,11 @@
         architectural design for their recovery phase (ceiling height, daylight, shading, and privacy)
         and scores how well that design supports healing, served live through a Grasshopper node.</p>
       <div class="sheet-tags"><span class="chip">Ladybug + climate sim</span><span class="chip b">Multi output regression</span><span class="chip o">El Minya rehab center</span></div>
+      <button class="journey-start" type="button" aria-haspopup="dialog">
+        <svg viewBox="0 0 24 40" aria-hidden="true"><circle cx="12" cy="6" r="5" fill="currentColor"/><path d="M12 14v13m-7-6 7-7 7 7M12 27 6 38m6-11 6 11" stroke="currentColor" stroke-width="4" stroke-linecap="round" fill="none"/></svg>
+        Follow the healing journey →
+      </button>
     </div>
-    <div class="sheet-arrow">Open sheet →</div>
   </div>
 
   <div class="sheet">
@@ -176,5 +194,59 @@
 
 <footer class="site">Gamila Wael Youness · Computational and Architectural Design Portfolio · New Giza University</footer>
 
+<dialog class="journey-dialog" aria-labelledby="journey-title">
+  <button class="journey-close" type="button" aria-label="Close journey">✕</button>
+  <h2 id="journey-title">A journey toward healing</h2>
+  <p>An illustration of supportive architecture and recovery.</p>
+  <div class="journey-scene">
+    <svg viewBox="0 0 600 250" role="img" aria-label="A person follows a road through a rehabilitation building toward a bright destination">
+      <circle class="journey-sun" cx="530" cy="50" r="25" fill="#b49b6a"/>
+      <path d="M35 205H570" fill="none" stroke="#91827d" stroke-width="24" stroke-linecap="round"/>
+      <path d="M35 205H570" fill="none" stroke="#f1e9df" stroke-width="2" stroke-dasharray="9 10"/>
+      <circle cx="550" cy="205" r="13" fill="#4f5345"/>
+      <path d="m544 205 4 4 8-9" fill="none" stroke="#fff" stroke-width="2"/>
+      <g class="journey-person" fill="#111" stroke="#111" stroke-width="4" stroke-linecap="round">
+        <circle cx="55" cy="158" r="7" stroke="none"/>
+        <path d="M55 169v19m-9-9 9-10 9 10m-9 9-8 14m8-14 8 14" fill="none"/>
+      </g>
+      <g fill="#d4ccbd" stroke="#2b2d25" stroke-width="2">
+        <path d="M240 195V98h105v97h-34v-45h-38v45Z"/>
+        <path d="m228 98 64-38 64 38Z" fill="#4f5345"/>
+        <path d="M255 113h15v20h-15Zm58 0h15v20h-15Z" fill="#91827d"/>
+      </g>
+      <text x="292" y="45" text-anchor="middle" fill="#f1e9df" font-family="Times New Roman" font-size="16">Supportive architecture</text>
+    </svg>
+  </div>
+  <p class="journey-status" role="status" aria-live="polite">The journey begins.</p>
+</dialog>
+<script>
+const journeyDialog = document.querySelector('.journey-dialog');
+const journeyScene = document.querySelector('.journey-scene');
+const journeyStatus = document.querySelector('.journey-status');
+let journeyTimers = [];
+function cancelJourney() {
+  journeyTimers.forEach(clearTimeout);
+  journeyTimers = [];
+  journeyScene.classList.remove('running');
+}
+document.querySelector('.journey-start').addEventListener('click', () => {
+  cancelJourney();
+  journeyStatus.textContent = 'Moving toward a supportive environment.';
+  journeyDialog.showModal();
+  const duration = window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 900 : 5000;
+  requestAnimationFrame(() => {
+    if (journeyDialog.open) journeyScene.classList.add('running');
+  });
+  journeyTimers.push(setTimeout(() => {
+    journeyStatus.textContent = 'Arrived in a brighter environment. Opening the project.';
+  }, duration));
+  journeyTimers.push(setTimeout(() => {
+    window.location.href = 'projects/rehab/index.html';
+  }, duration + 900));
+});
+document.querySelector('.journey-close').addEventListener('click', () => journeyDialog.close());
+journeyDialog.addEventListener('close', cancelJourney);
+journeyDialog.addEventListener('cancel', cancelJourney);
+</script>
 </body>
 </html>
