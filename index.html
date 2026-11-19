@@ -77,6 +77,7 @@
 .journey-start{position:absolute;right:2.5rem;bottom:.5rem;width:230px;height:68px;padding:0;border:0!important;border-radius:0;box-shadow:none!important;background:none!important;cursor:pointer;color:#111;appearance:none}
 .journey-start:focus-visible{outline:2px solid var(--rust);outline-offset:3px}
 .journey-scene,.journey-scene.running{background:transparent}
+.inline-person{filter:blur(1.8px)}
 .journey-start svg{display:block;width:100%;height:48px;overflow:visible}
 .journey-label{display:block;font-family:var(--body);font-size:.8rem;line-height:20px;color:var(--ink)}
 @media(max-width:700px){.sheet:first-child .sheet-body{padding-bottom:6rem}.journey-start{width:min(230px,calc(100% - 2rem));right:1rem}}
@@ -200,6 +201,7 @@ function resetJourney() {
   scene.classList.remove('running');
   button.removeAttribute('aria-disabled');
   person.setAttribute('transform', 'translate(15 70)');
+  person.style.removeProperty('filter');
 }
 document.querySelector('.sheet:first-child').addEventListener('click', () => {
   if (scene.classList.contains('running')) return;
@@ -211,6 +213,8 @@ document.querySelector('.sheet:first-child').addEventListener('click', () => {
     const progress = Math.min((now - start) / duration, 1);
     const point = road.getPointAtLength(road.getTotalLength() * progress);
     person.setAttribute('transform', 'translate(' + point.x + ' ' + point.y + ')');
+    const clarity = Math.max(0, (progress - .65) / .35);
+    person.style.filter = 'blur(' + (1.8 * (1 - clarity)) + 'px)';
     if (progress < 1) journeyFrame = requestAnimationFrame(move);
     else journeyTimer = setTimeout(() => { location.href = 'projects/rehab/index.html'; }, 700);
   }
