@@ -194,7 +194,7 @@
           <input id="brick-orientation" type="range" min="0" max="360" step="15" value="180">
           <label for="brick-function">Room <output id="brick-room">ICU</output></label>
           <input id="brick-function" type="range" min="0" max="4" step="1" value="1" aria-valuetext="ICU">
-          <label for="brick-sun">Sun height <output id="brick-altitude">45°</output></label>
+          <label for="brick-sun" title="Sun angle above the horizon">Solar altitude <output id="brick-altitude">45°</output></label>
           <input id="brick-sun" type="range" min="5" max="85" step="5" value="45">
         </div>
         <p class="brick-summary"><span id="brick-result"></span><span id="brick-criterion"></span><span>South sun · schematic</span></p>
@@ -240,11 +240,11 @@ const bearingControl = document.querySelector('#brick-orientation');
 const functionControl = document.querySelector('#brick-function');
 const sunControl = document.querySelector('#brick-sun');
 const roomUses = [
-  { name: 'Operating theatre', opaque: true, criterion: 'Opaque envelope · no daylight' },
-  { name: 'ICU', opaque: false, criterion: 'Zero direct sun target · protected bed views' },
-  { name: 'Inpatient', opaque: false, criterion: 'Room sun limit · protected views' },
-  { name: 'Outpatient', opaque: false, criterion: 'Room criteria to be confirmed' },
-  { name: 'ER', opaque: false, criterion: 'Room criteria to be confirmed' }
+  { name: 'Operating theatre', opaque: true, criterion: 'Daylight excluded by the opaque envelope.' },
+  { name: 'ICU', opaque: false, criterion: 'Target: block direct sun at patient beds and preserve outward views.' },
+  { name: 'Inpatient', opaque: false, criterion: 'Preserve outward views. Allowed direct sun hours must be set for the room.' },
+  { name: 'Outpatient', opaque: false, criterion: 'Set daylight, glare and privacy requirements for the specific clinic before selecting a screen.' },
+  { name: 'ER', opaque: false, criterion: 'Define the emergency department space and its daylight, glare and privacy requirements before selecting a screen.' }
 ];
 const bricks = Array.from({ length: 24 }, () => {
   const brick = document.createElement('i');
