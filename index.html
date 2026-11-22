@@ -84,6 +84,8 @@
 .brick-preview{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:3px 2px;perspective:350px;padding:3px 7px 3px 0;overflow:hidden}
 .brick-preview i{display:block;height:6px;background:var(--rust);border:0;box-shadow:inset 0 -1px rgba(0,0,0,.3),1px 1px rgba(43,45,37,.2);transition:transform .25s;transform-origin:center}
 .brick-preview i:nth-child(12n+7),.brick-preview i:nth-child(12n+8),.brick-preview i:nth-child(12n+9),.brick-preview i:nth-child(12n+10),.brick-preview i:nth-child(12n+11),.brick-preview i:nth-child(12n+12){position:relative;left:6px}
+.brick-preview.opaque{background:var(--rust);gap:1px;padding:3px}
+.brick-preview.opaque i{left:0;background:var(--rust);box-shadow:inset 0 -1px rgba(43,45,37,.25)}
 .brick-controls label{display:flex;justify-content:space-between;gap:.4rem;font-size:.7rem}
 .brick-controls input{display:block;width:100%;height:16px;margin:0 0 3px;accent-color:var(--rust)}
 .brick-summary{font-size:.65rem!important;line-height:1.25;margin:.15rem 0 0!important;color:var(--mut)}
@@ -171,7 +173,7 @@
           <input id="brick-function" type="range" min="0" max="2" step="1" value="1" aria-valuetext="ICU">
           <label for="brick-sun">Sun altitude <output id="brick-altitude">45°</output></label>
           <input id="brick-sun" type="range" min="5" max="85" step="5" value="45">
-          <p class="brick-summary"><span id="brick-result"></span><br>Illustrative hospital screen</p>
+          <p class="brick-summary"><span id="brick-result"></span><br><span id="brick-criterion"></span><br>South sun · schematic</p>
         </div>
       </div>
       <a class="brick-open" href="projects/brick/index.html">Open project →</a>
@@ -214,9 +216,9 @@ const bearingControl = document.querySelector('#brick-orientation');
 const functionControl = document.querySelector('#brick-function');
 const sunControl = document.querySelector('#brick-sun');
 const roomUses = [
-  { name: 'Operating theatre', openness: .18, shading: 1 },
-  { name: 'ICU', openness: .35, shading: 1 },
-  { name: 'Inpatient', openness: .5, shading: .6 }
+  { name: 'Operating theatre', opaque: true, criterion: 'Opaque envelope · no daylight' },
+  { name: 'ICU', opaque: false, criterion: 'Zero direct sun target · protected bed views' },
+  { name: 'Inpatient', opaque: false, criterion: 'Room sun limit · protected views' }
 ];
 const bricks = Array.from({ length: 24 }, () => {
   const brick = document.createElement('i');
@@ -235,20 +237,26 @@ function updateBrickPreview() {
   // These display parameters are not calibrated WWR targets or simulation results.
   const incidence = Math.max(0, Math.cos((bearing - 180) * Math.PI / 180));
   const exposure = incidence * Math.cos(altitude * Math.PI / 180);
-  const openness = Math.max(.1, room.openness - exposure * .12);
-  const angle = Math.round(10 + exposure * 55 * room.shading);
+  const opaque = room.opaque;
+  // Qualitative motion only. No patient-room daylight values are calculated here.
+  const angle = opaque ? 0 : Math.round(exposure * 65);
+  const openness = opaque ? 0 : .45 * (1 - exposure);
+  brickPreview.classList.toggle('opaque', opaque);
+  bearingControl.disabled = opaque;
+  sunControl.disabled = opaque;
   document.querySelector('#brick-bearing').textContent = bearing + '° · ' + direction;
   document.querySelector('#brick-room').textContent = room.name;
   document.querySelector('#brick-altitude').textContent = altitude + '°';
   functionControl.setAttribute('aria-valuetext', room.name);
-  document.querySelector('#brick-result').textContent = angle + '° rotation · ' + Math.round(openness * 100) + '% opening';
+  document.querySelector('#brick-result').textContent = opaque ? 'Closed · 0% opening' : 'Illustrative rotation ' + angle + '°';
+  document.querySelector('#brick-criterion').textContent = room.criterion;
   bricks.forEach((brick, index) => {
     const gradient = (index % 6) / 5;
-    const localOpen = Math.max(.08, Math.min(.85, openness + (gradient - .5) * .2));
-    const rotation = angle + (gradient - .5) * 8;
+    const localOpen = opaque ? 0 : Math.max(0, Math.min(.85, openness + (gradient - .5) * .1));
+    const rotation = opaque ? 0 : angle;
     brick.style.transform = 'rotateY(' + rotation + 'deg) scaleX(' + (1 - localOpen * .5) + ')';
   });
-  brickPreview.setAttribute('aria-label', room.name + ', ' + direction + ' facing brick screen. ' + angle + ' degrees rotation, ' + Math.round(openness * 100) + ' percent opening. Schematic preview.');
+  brickPreview.setAttribute('aria-label', room.name + '. ' + room.criterion + '. ' + (opaque ? 'Opaque façade with no openings.' : direction + ' facing screen. Qualitative illustration with a fixed southern sun, without daylight or sightline validation.'));
 }
 bearingControl.addEventListener('input', updateBrickPreview);
 functionControl.addEventListener('input', updateBrickPreview);
