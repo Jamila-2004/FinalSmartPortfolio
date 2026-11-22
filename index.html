@@ -80,14 +80,14 @@
 .inline-person{filter:blur(1.8px)}
 .journey-start svg{display:block;width:100%;height:48px;overflow:visible}
 .journey-label{display:block;font-family:var(--body);font-size:.8rem;line-height:20px;color:var(--ink)}
-.brick-demo{display:grid;grid-template-columns:minmax(0,1fr) minmax(180px,240px);gap:1.2rem;align-items:center;margin-top:1rem}
-.brick-preview{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:5px 3px;perspective:600px;padding:12px 4px;overflow:hidden;min-height:100px}
-.brick-preview i{display:block;height:12px;background:var(--rust);border:1px solid var(--rust);transition:transform .25s,border-width .25s;background-clip:padding-box}
-.brick-controls label{display:flex;justify-content:space-between;gap:.5rem;font-size:.8rem}
-.brick-controls input{display:block;width:100%;min-height:30px;accent-color:var(--rust)}
+.brick-demo{display:grid;grid-template-columns:110px minmax(0,150px);gap:.65rem;align-items:center;margin:.5rem 0 0 auto;max-width:275px}
+.brick-preview{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:4px 2px;perspective:600px;padding:5px 2px;overflow:hidden;min-height:50px}
+.brick-preview i{display:block;height:10px;background:var(--rust);border:1px solid var(--rust);transition:transform .25s,border-width .25s;background-clip:padding-box}
+.brick-controls label{display:flex;justify-content:space-between;gap:.4rem;font-size:.7rem}
+.brick-controls input{display:block;width:100%;height:16px;margin:0 0 3px;accent-color:var(--rust)}
 .brick-summary{font-size:.75rem;margin-top:.4rem;color:var(--mut)}
 .brick-open{display:inline-block;margin-top:.65rem;min-height:30px;position:relative}
-@media(max-width:700px){.brick-demo{grid-template-columns:minmax(0,1fr)}.brick-preview{max-width:440px;width:100%}}
+@media(max-width:700px){.brick-demo{grid-template-columns:100px minmax(0,150px);width:100%}.brick-preview{width:100%}.brick-controls input{height:24px}}
 @media(max-width:700px){.sheet:first-child .sheet-body{padding-bottom:6rem}.journey-start{width:min(230px,calc(100% - 2rem));right:1rem}}
 </style>
 </head>
@@ -166,9 +166,11 @@
         <div class="brick-controls">
           <label for="brick-orientation">Façade orientation <output id="brick-bearing">180° · S</output></label>
           <input id="brick-orientation" type="range" min="0" max="360" step="15" value="180">
-          <label for="brick-function">Room function <output id="brick-room">Living</output></label>
-          <input id="brick-function" type="range" min="0" max="2" step="1" value="1" aria-valuetext="Living">
-          <p class="brick-summary"><span id="brick-result"></span><br>Schematic daylight response</p>
+          <label for="brick-function">Room <output id="brick-room">ICU</output></label>
+          <input id="brick-function" type="range" min="0" max="2" step="1" value="1" aria-valuetext="ICU">
+          <label for="brick-sun">Sun altitude <output id="brick-altitude">45°</output></label>
+          <input id="brick-sun" type="range" min="5" max="85" step="5" value="45">
+          <p class="brick-summary"><span id="brick-result"></span><br>Illustrative hospital screen</p>
         </div>
       </div>
       <a class="brick-open" href="projects/brick/index.html">Open project →</a>
@@ -209,12 +211,13 @@
 const brickPreview = document.querySelector('.brick-preview');
 const bearingControl = document.querySelector('#brick-orientation');
 const functionControl = document.querySelector('#brick-function');
+const sunControl = document.querySelector('#brick-sun');
 const roomUses = [
-  { name: 'Bedroom', demand: .3 },
-  { name: 'Living', demand: .6 },
-  { name: 'Workspace', demand: .9 }
+  { name: 'Operating theatre', openness: .18, shading: 1 },
+  { name: 'ICU', openness: .35, shading: 1 },
+  { name: 'Inpatient', openness: .5, shading: .6 }
 ];
-const bricks = Array.from({ length: 60 }, () => {
+const bricks = Array.from({ length: 24 }, () => {
   const brick = document.createElement('i');
   brick.setAttribute('aria-hidden', 'true');
   brickPreview.appendChild(brick);
@@ -225,26 +228,32 @@ function updateBrickPreview() {
   const room = roomUses[Number(functionControl.value)];
   const directions = ['N', 'NE', 'E', 'SE', 'S', 'SW', 'W', 'NW'];
   const direction = directions[Math.round(bearing / 45) % 8];
-  // Illustrative exposure curve and room demand, independent of the GH simulation.
-  const exposure = .25 + .75 * (1 - Math.cos(bearing * Math.PI / 180)) / 2;
-  const openness = Math.max(.12, Math.min(.8, .22 + room.demand * .6 - exposure * .22));
-  const angle = Math.round(openness * 65 * Math.sin((bearing + 45) * Math.PI / 180));
+  const altitude = Number(sunControl.value);
+  // Schematic only. The hospital study uses weighted site sun vectors, ray tests,
+  // room context and protected sightlines to choose among candidate angles.
+  // These display parameters are not calibrated WWR targets or simulation results.
+  const incidence = Math.max(0, Math.cos((bearing - 180) * Math.PI / 180));
+  const exposure = incidence * Math.cos(altitude * Math.PI / 180);
+  const openness = Math.max(.1, room.openness - exposure * .12);
+  const angle = Math.round(10 + exposure * 55 * room.shading);
   document.querySelector('#brick-bearing').textContent = bearing + '° · ' + direction;
   document.querySelector('#brick-room').textContent = room.name;
+  document.querySelector('#brick-altitude').textContent = altitude + '°';
   functionControl.setAttribute('aria-valuetext', room.name);
   document.querySelector('#brick-result').textContent = angle + '° rotation · ' + Math.round(openness * 100) + '% opening';
   bricks.forEach((brick, index) => {
-    const gradient = (index % 12) / 11;
+    const gradient = (index % 6) / 5;
     const localOpen = Math.max(.08, Math.min(.85, openness + (gradient - .5) * .2));
-    const rotation = localOpen * 65 * Math.sin((bearing + 45) * Math.PI / 180);
-    brick.style.transform = 'rotateY(' + rotation + 'deg) rotateZ(' + (localOpen * 14) + 'deg)';
+    const rotation = angle + (gradient - .5) * 8;
+    brick.style.transform = 'rotateY(' + rotation + 'deg)';
     brick.style.backgroundColor = 'transparent';
-    brick.style.borderWidth = (5 * (1 - localOpen) + 1) + 'px ' + (7 * (1 - localOpen) + 1) + 'px';
+    brick.style.borderWidth = (3 * (1 - localOpen)) + 'px ' + (4 * (1 - localOpen)) + 'px';
   });
   brickPreview.setAttribute('aria-label', room.name + ', ' + direction + ' facing brick screen. ' + angle + ' degrees rotation, ' + Math.round(openness * 100) + ' percent opening. Schematic preview.');
 }
 bearingControl.addEventListener('input', updateBrickPreview);
 functionControl.addEventListener('input', updateBrickPreview);
+sunControl.addEventListener('input', updateBrickPreview);
 updateBrickPreview();
 const button = document.querySelector('.journey-start');
 const scene = button.querySelector('.journey-scene');
