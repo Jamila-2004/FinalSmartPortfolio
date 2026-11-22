@@ -80,14 +80,15 @@
 .inline-person{filter:blur(1.8px)}
 .journey-start svg{display:block;width:100%;height:48px;overflow:visible}
 .journey-label{display:block;font-family:var(--body);font-size:.8rem;line-height:20px;color:var(--ink)}
-.brick-demo{display:grid;grid-template-columns:110px minmax(0,150px);gap:.65rem;align-items:center;margin:.5rem 0 0 auto;max-width:275px}
-.brick-preview{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:4px 2px;perspective:600px;padding:5px 2px;overflow:hidden;min-height:50px}
-.brick-preview i{display:block;height:10px;background:var(--rust);border:1px solid var(--rust);transition:transform .25s,border-width .25s;background-clip:padding-box}
+.brick-demo{display:grid;grid-template-columns:92px minmax(0,145px);gap:.75rem;align-items:center;margin:.4rem 0 0;max-width:250px}
+.brick-preview{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:3px 2px;perspective:350px;padding:3px 7px 3px 0;overflow:hidden}
+.brick-preview i{display:block;height:6px;background:var(--rust);border:0;box-shadow:inset 0 -1px rgba(0,0,0,.3),1px 1px rgba(43,45,37,.2);transition:transform .25s;transform-origin:center}
+.brick-preview i:nth-child(12n+7),.brick-preview i:nth-child(12n+8),.brick-preview i:nth-child(12n+9),.brick-preview i:nth-child(12n+10),.brick-preview i:nth-child(12n+11),.brick-preview i:nth-child(12n+12){position:relative;left:6px}
 .brick-controls label{display:flex;justify-content:space-between;gap:.4rem;font-size:.7rem}
 .brick-controls input{display:block;width:100%;height:16px;margin:0 0 3px;accent-color:var(--rust)}
-.brick-summary{font-size:.75rem;margin-top:.4rem;color:var(--mut)}
-.brick-open{display:inline-block;margin-top:.65rem;min-height:30px;position:relative}
-@media(max-width:700px){.brick-demo{grid-template-columns:100px minmax(0,150px);width:100%}.brick-preview{width:100%}.brick-controls input{height:24px}}
+.brick-summary{font-size:.65rem!important;line-height:1.25;margin:.15rem 0 0!important;color:var(--mut)}
+.brick-open{display:inline-block;margin-top:.3rem;min-height:30px;position:relative}
+@media(max-width:700px){.brick-demo{grid-template-columns:92px minmax(0,145px);width:100%}.brick-preview{width:100%}.brick-controls input{height:24px}}
 @media(max-width:700px){.sheet:first-child .sheet-body{padding-bottom:6rem}.journey-start{width:min(230px,calc(100% - 2rem));right:1rem}}
 </style>
 </head>
@@ -245,9 +246,7 @@ function updateBrickPreview() {
     const gradient = (index % 6) / 5;
     const localOpen = Math.max(.08, Math.min(.85, openness + (gradient - .5) * .2));
     const rotation = angle + (gradient - .5) * 8;
-    brick.style.transform = 'rotateY(' + rotation + 'deg)';
-    brick.style.backgroundColor = 'transparent';
-    brick.style.borderWidth = (3 * (1 - localOpen)) + 'px ' + (4 * (1 - localOpen)) + 'px';
+    brick.style.transform = 'rotateY(' + rotation + 'deg) scaleX(' + (1 - localOpen * .5) + ')';
   });
   brickPreview.setAttribute('aria-label', room.name + ', ' + direction + ' facing brick screen. ' + angle + ' degrees rotation, ' + Math.round(openness * 100) + ' percent opening. Schematic preview.');
 }
