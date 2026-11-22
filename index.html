@@ -92,7 +92,7 @@
 .brick-controls label:nth-of-type(1),.brick-controls input:nth-of-type(1){grid-column:1}
 .brick-controls label:nth-of-type(2),.brick-controls input:nth-of-type(2){grid-column:2}
 .brick-controls label:nth-of-type(3),.brick-controls input:nth-of-type(3){grid-column:3}
-.brick-controls .brick-summary{grid-column:1/-1;grid-row:3;justify-self:start}
+.brick-demo>.brick-summary{grid-column:1/-1;justify-self:start;width:100%;display:flex;flex-wrap:wrap;gap:.15rem .6rem}
 .brick-demo-title{display:block;font-size:.85rem;margin-top:.5rem}
 .brick-demo-subtitle{display:block;font-size:.65rem;color:var(--mut)}
 .sheet:nth-child(3) .sheet-body{display:grid;grid-template-columns:minmax(0,1fr) 250px;column-gap:1.25rem;align-content:center}
@@ -195,8 +195,8 @@
           <input id="brick-function" type="range" min="0" max="4" step="1" value="1" aria-valuetext="ICU">
           <label for="brick-sun">Sun height <output id="brick-altitude">45°</output></label>
           <input id="brick-sun" type="range" min="5" max="85" step="5" value="45">
-          <p class="brick-summary"><span id="brick-result"></span><br><span id="brick-criterion"></span><br>South sun · schematic</p>
         </div>
+        <p class="brick-summary"><span id="brick-result"></span><span id="brick-criterion"></span><span>South sun · schematic</span></p>
       </div>
       </div>
       <a class="brick-open" href="projects/brick/index.html">Open project →</a>
