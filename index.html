@@ -95,9 +95,19 @@
 .brick-controls .brick-summary{grid-column:1/-1;grid-row:3;justify-self:start}
 .brick-demo-title{display:block;font-size:.85rem;margin-top:.5rem}
 .brick-demo-subtitle{display:block;font-size:.65rem;color:var(--mut)}
+.sheet:nth-child(3) .sheet-body{display:grid;grid-template-columns:minmax(0,1fr) 250px;column-gap:1.25rem;align-content:center}
+.brick-copy{min-width:0}
+.brick-interaction{grid-column:2;grid-row:1/3;align-self:center}
+.brick-interaction .brick-demo-title{margin-top:0}
+.brick-interaction .brick-demo{margin-top:.3rem}
+.sheet:nth-child(3) .brick-open{grid-column:1;justify-self:start;align-self:end;font-size:.75rem}
 .brick-summary{font-size:.65rem!important;line-height:1.25;margin:.15rem 0 0!important;color:var(--mut)}
 .brick-open{display:inline-block;margin-top:.3rem;min-height:30px;position:relative}
 @media(max-width:700px){.brick-demo{grid-template-columns:92px minmax(0,145px);width:100%}.brick-preview{width:100%}.brick-controls input{height:65px}}
+@media(max-width:700px){
+  .sheet:nth-child(3) .sheet-body{display:block;padding-bottom:1rem}
+  .brick-interaction{margin-top:1rem}
+}
 @media(max-width:700px){.sheet:first-child .sheet-body{padding-bottom:6rem}.journey-start{width:min(230px,calc(100% - 2rem));right:1rem}}
 </style>
 </head>
@@ -166,11 +176,14 @@
   <div class="sheet">
     <div class="sheet-num"><span>Project</span><b>A-103</b><span>Grasshopper · Python</span></div>
     <div class="sheet-body">
+      <div class="brick-copy">
       <h3>Parametric Brick Façade Generator</h3>
       <p>A Grasshopper definition that reads daylight and lux levels through a Python script node,
         derives the window to wall ratio per façade zone from that analysis, then sets each brick's
         rotation angle and opening size to match.</p>
       <div class="sheet-tags"><span class="chip">Lux driven WWR</span><span class="chip b">Rotation + opening logic</span><span class="chip o">Python script node</span></div>
+      </div>
+      <div class="brick-interaction">
       <strong class="brick-demo-title">Façade with Purpose</strong>
       <span class="brick-demo-subtitle">Function · Environment · People</span>
       <div class="brick-demo">
@@ -184,6 +197,7 @@
           <input id="brick-sun" type="range" min="5" max="85" step="5" value="45">
           <p class="brick-summary"><span id="brick-result"></span><br><span id="brick-criterion"></span><br>South sun · schematic</p>
         </div>
+      </div>
       </div>
       <a class="brick-open" href="projects/brick/index.html">Open project →</a>
     </div>
